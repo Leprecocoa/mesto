@@ -14,3 +14,15 @@
 /* Header style */
 @import url('../blocks/header/header.css');
 @import url('../blocks/header/__logo/header__logo.css');
+
+/* Profile style */
+@import url('../blocks/profile/profile.css');
+@import url('../blocks/profile/__avatar/profile__avatar.css');
+@import url('../blocks/profile/__info/profile__info.css');
+@import url('../blocks/profile/__header/profile__header.css');
+@import url('../blocks/profile/__title/profile__title.css');
+@import url('../blocks/profile/__subtitle/profile__subtitle.css');
+@import url('../blocks/profile/__edit-button/profile__edit-button.css');
+@import url('../blocks/profile/__button-image/profile__button-image.css');
+@import url('../blocks/profile/__addcard-button/profile__addcard-button.css');
+@import url('../blocks/profile/__addcard-image/profile__addcard-image.css');

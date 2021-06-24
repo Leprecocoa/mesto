@@ -1,0 +1,7 @@
+.profile__edit-button {
+  padding: 6px;
+  line-height: 0;
+  background: none;
+  border: 1px solid #fff;
+  cursor: pointer;
+}
