@@ -1,0 +1,5 @@
+.elements__text {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 30px 31px 21px;
+}

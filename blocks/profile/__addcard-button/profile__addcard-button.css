@@ -1,6 +1,10 @@
 .profile__addcard-button {
+  width: 150px;
+  height: 50px;
+  padding: 0;
   margin-left: auto;
-  padding: 12px 62px;
-  background: none;
   border: 2px solid #fff;
+  background: url('../../../images/addcard-img.svg') center / 22px 22px
+    no-repeat;
+  cursor: pointer;
 }
