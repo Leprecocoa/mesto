@@ -1,4 +1,7 @@
 .profile__edit-button {
+  position: absolute;
+  bottom: 8px;
+  right: -30px;
   width: 24px;
   height: 24px;
   padding: 0;
@@ -6,4 +9,12 @@
   background: url('../../../images/profile-edit.svg') center / 10px 10px
     no-repeat;
   cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+    background-size: 7.5px 7.5px;
+  }
 }

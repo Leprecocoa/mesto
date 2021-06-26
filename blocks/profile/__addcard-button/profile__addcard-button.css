@@ -2,9 +2,21 @@
   width: 150px;
   height: 50px;
   padding: 0;
-  margin-left: auto;
   border: 2px solid #fff;
   background: url('../../../images/addcard-img.svg') center / 22px 22px
     no-repeat;
   cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .profile__addcard-button {
+    margin-top: 36px;
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .profile__addcard-button {
+    width: 100%;
+  }
 }
