@@ -1,12 +1,4 @@
-.elements__like-button {
-  width: 22px;
-  height: 19px;
-  align-self: center;
-  padding: 0;
-  background: url('../../../images/elements-like-icon.svg') center / 22px 19px
-    no-repeat;
-  border: none;
-  cursor: pointer;
+.page__button {
   transition: opacity 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
   -webkit-transition: opacity 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
   -moz-transition: opacity 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
@@ -14,6 +6,6 @@
   -o-transition: opacity 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 
-.elements__like-button:hover {
-  opacity: 0.5;
+.page__button:hover {
+  opacity: 0.6;
 }
