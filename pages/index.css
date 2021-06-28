@@ -38,3 +38,12 @@
 /* Footer style */
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__copyright/footer__copyright.css');
+
+/* Popup style */
+@import url('../blocks/popup/popup.css');
+@import url('../blocks/popup/__container/popup__container.css');
+@import url('../blocks/popup/__title/popup__title.css');
+@import url('../blocks/popup/__input/popup__input.css');
+@import url('../blocks/popup/__submit/popup__submit.css');
+@import url('../blocks/popup/__close/popup__close.css');
+@import url('../blocks/popup/_state/popup_state_opened.css');

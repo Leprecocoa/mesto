@@ -1,0 +1,31 @@
+.popup__submit {
+  width: 100%;
+  padding: 14px 0 18px;
+  border: none;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  font-size: 18px;
+  line-height: 22px;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-transition: opacity 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-transition: opacity 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-transition: opacity 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-transition: opacity 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+.popup__submit:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 550px) {
+  .popup__submit {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
