@@ -2,3 +2,9 @@
   position: relative;
   margin-bottom: 16px;
 }
+
+@media screen and (max-width: 500px) {
+  .profile__header {
+    margin-bottom: 9px;
+  }
+}
