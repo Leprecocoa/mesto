@@ -4,12 +4,15 @@ let formElement = document.querySelector(".popup__container");
 let nameInput = document.querySelector(".popup__name-input");
 let aboutInput = document.querySelector(".popup__about-input");
 
-function showPopup() {
-  document.querySelector(".popup").classList.toggle("popup_state_opened");
+function popupToggle() {
+  document.querySelector(".popup").classList.toggle("popup_opened");
+
+  nameInput.value = "";
+  aboutInput.value = "";
 }
 
-function closePopup() {
-  document.querySelector(".popup").classList.toggle("popup_state_opened");
+function showPopup() {
+  popupToggle();
 }
 
 function formSubmitHandler(evt) {
@@ -18,14 +21,11 @@ function formSubmitHandler(evt) {
   document.querySelector(".profile__title").textContent = nameInput.value;
   document.querySelector(".profile__subtitle").textContent = aboutInput.value;
 
-  document.querySelector(".popup").classList.toggle("popup_state_opened");
-
-  nameInput.value = "";
-  aboutInput.value = "";
+  popupToggle();
 }
 
 showButton.addEventListener("click", showPopup);
 
-closeButton.addEventListener("click", closePopup);
+closeButton.addEventListener("click", popupToggle);
 
 formElement.addEventListener("submit", formSubmitHandler);

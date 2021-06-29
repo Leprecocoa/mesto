@@ -1,6 +1,7 @@
 .profile__header {
+  display: flex;
+  align-items: baseline;
   position: relative;
-  margin-bottom: 16px;
 }
 
 @media screen and (max-width: 500px) {
