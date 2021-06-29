@@ -1,7 +1,6 @@
 .profile__info {
   max-width: 350px;
   margin: 0 auto 0 30px;
-  overflow-wrap: break-word;
 }
 
 @media screen and (max-width: 800px) {

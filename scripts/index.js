@@ -13,6 +13,8 @@ function popupToggle() {
 
 function showPopup() {
   popupToggle();
+  nameInput.value = document.querySelector(".profile__title").textContent;
+  aboutInput.value = document.querySelector(".profile__subtitle").textContent;
 }
 
 function formSubmitHandler(evt) {
