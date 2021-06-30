@@ -3,6 +3,11 @@
   height: 50px;
   padding: 0;
   border: 2px solid #fff;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
   background: url('../../../images/addcard-img.svg') center / 22px 22px
     no-repeat;
   cursor: pointer;

@@ -33,80 +33,86 @@
           <div class="profile__info">
             <div class="profile__header">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button page__button"></button>
+              <button
+                class="profile__edit-button page__button"
+                type="button"
+              ></button>
             </div>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
-          <button class="profile__addcard-button page__button"></button>
+          <button
+            class="profile__addcard-button page__button"
+            type="button"
+          ></button>
         </section>
 
         <!-- Elements section -->
 
         <section class="elements">
-          <article class="elements__article">
+          <article class="article">
             <img
               src="./images/elements-karachaevsk.jpg"
               alt="Карачаевск. Обветшавший каменный монастырь на фоне горного склона."
-              class="elements__image"
+              class="article__image"
             />
-            <div class="elements__text">
-              <h2 class="elements__title">Карачаевск</h2>
-              <button class="elements__like-button"></button>
+            <div class="article__text">
+              <h2 class="article__title">Карачаевск</h2>
+              <button class="article__like-button" type="button"></button>
             </div>
           </article>
-          <article class="elements__article">
+          <article class="article">
             <img
               src="./images/elements-elbrus.jpg"
               alt="Поле на закате. Вдали виднеется двуглавая вершина Эльбруса."
-              class="elements__image"
+              class="article__image"
             />
-            <div class="elements__text">
-              <h2 class="elements__title">Гора Эльбрус</h2>
-              <button class="elements__like-button"></button>
+            <div class="article__text">
+              <h2 class="article__title">Гора Эльбрус</h2>
+              <button class="article__like-button" type="button"></button>
             </div>
           </article>
-          <article class="elements__article">
+          <article class="article">
             <img
               src="./images/elements-dombay.jpg"
               alt="На переднем плане два склона, покрытые лесами, на фоне - заснеженная гора Домбая."
-              class="elements__image"
+              class="article__image"
             />
-            <div class="elements__text">
-              <h2 class="elements__title">Домбай</h2>
-              <button class="elements__like-button"></button>
+            <div class="article__text">
+              <h2 class="article__title">Домбай</h2>
+              <button class="article__like-button" type="button"></button>
             </div>
           </article>
-          <article class="elements__article">
+          <article class="article">
             <img
               src="./images/elements-elbrus.jpg"
               alt="Поле на закате. Вдали виднеется двуглавая вершина Эльбруса."
-              class="elements__image"
+              class="article__image"
             />
-            <div class="elements__text">
-              <h2 class="elements__title">Гора Эльбрус</h2>
-              <button class="elements__like-button"></button>
+            <div class="article__text">
+              <h2 class="article__title">Гора Эльбрус</h2>
+              <button class="article__like-button" type="button"></button>
             </div>
           </article>
-          <article class="elements__article">
+          <article class="article">
             <img
               src="./images/elements-dombay.jpg"
               alt="На переднем плане два склона, покрытые лесами, на фоне - заснеженная гора Домбая."
-              class="elements__image"
+              class="article__image"
             />
-            <div class="elements__text">
-              <h2 class="elements__title">Домбай</h2>
-              <button class="elements__like-button"></button>
+            <div class="article__text">
+              <h2 class="article__title">Домбай</h2>
+              <button class="article__like-button" type="button"></button>
             </div>
           </article>
-          <article class="elements__article">
+          <article class="article">
             <img
               src="./images/elements-karachaevsk.jpg"
               alt="Карачаевск. Обветшавший каменный монастырь на фоне горного склона."
-              class="elements__image"
+              class="article__image"
             />
-            <div class="elements__text">
-              <h2 class="elements__title">Карачаево-Черкесия</h2>
-              <button class="elements__like-button"></button>
+            <div class="article__text">
+              <h2 class="article__title">Карачаево-Черкесия</h2>
+              <button class="article__like-button" type="button"></button>
             </div>
           </article>
         </section>
@@ -117,23 +123,27 @@
 
       <!-- Popup -->
 
-      <section class="popup">
-        <form action="#" class="popup__container">
+      <div class="popup">
+        <div class="popup__container">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input
-            class="popup__name-input popup__input"
-            type="text"
-            placeholder="Имя"
-          />
-          <input
-            class="popup__about-input popup__input"
-            type="text"
-            placeholder="О себе"
-          />
-          <button class="popup__submit" type="submit">Сохранить</button>
           <button class="popup__close page__button" type="button"></button>
-        </form>
-      </section>
+          <form action="#" class="popup__form" name="popup">
+            <input
+              class="popup__input popup__input_value_name"
+              type="text"
+              name="name"
+              placeholder="Имя"
+            />
+            <input
+              class="popup__input popup__input_value_about"
+              type="text"
+              name="about"
+              placeholder="О себе"
+            />
+            <button class="popup__submit" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
     </div>
 
     <script src="./scripts/index.js"></script>

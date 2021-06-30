@@ -1,4 +1,4 @@
-.elements__like-button {
+.article__like-button {
   width: 22px;
   height: 19px;
   align-self: center;
@@ -14,6 +14,6 @@
   -o-transition: opacity 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 
-.elements__like-button:hover {
+.article__like-button:hover {
   opacity: 0.5;
 }

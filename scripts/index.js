@@ -1,33 +1,32 @@
 let showButton = document.querySelector(".profile__edit-button");
 let closeButton = document.querySelector(".popup__close");
-let formElement = document.querySelector(".popup__container");
-let nameInput = document.querySelector(".popup__name-input");
-let aboutInput = document.querySelector(".popup__about-input");
+let popup = document.querySelector(".popup");
+let formElement = document.querySelector(".popup__form");
+let nameInput = document.querySelector(".popup__input_value_name");
+let aboutInput = document.querySelector(".popup__input_value_about");
+let popupTitle = document.querySelector(".profile__title");
+let popupSubtitle = document.querySelector(".profile__subtitle");
 
-function popupToggle() {
-  document.querySelector(".popup").classList.toggle("popup_opened");
-
-  nameInput.value = "";
-  aboutInput.value = "";
-}
-
+// Функция открытия попапа
 function showPopup() {
-  popupToggle();
-  nameInput.value = document.querySelector(".profile__title").textContent;
-  aboutInput.value = document.querySelector(".profile__subtitle").textContent;
+  popup.classList.add("popup_opened");
+  nameInput.value = popupTitle.textContent;
+  aboutInput.value = popupSubtitle.textContent;
 }
 
-function formSubmitHandler(evt) {
+// Функция закрытия попапа
+function hidePopup() {
+  popup.classList.remove("popup_opened");
+}
+
+// Функция-обработчик формы
+function formHandle(evt) {
   evt.preventDefault();
-
-  document.querySelector(".profile__title").textContent = nameInput.value;
-  document.querySelector(".profile__subtitle").textContent = aboutInput.value;
-
-  popupToggle();
+  popupTitle.textContent = nameInput.value;
+  popupSubtitle.textContent = aboutInput.value;
+  hidePopup();
 }
 
 showButton.addEventListener("click", showPopup);
-
-closeButton.addEventListener("click", popupToggle);
-
-formElement.addEventListener("submit", formSubmitHandler);
+closeButton.addEventListener("click", hidePopup);
+formElement.addEventListener("submit", formHandle);
