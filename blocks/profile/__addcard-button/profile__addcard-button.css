@@ -24,5 +24,6 @@
   .profile__addcard-button {
     width: 100%;
     margin-top: 32px;
+    background-size: 16px 16px;
   }
 }

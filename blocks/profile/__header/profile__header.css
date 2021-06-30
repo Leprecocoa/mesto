@@ -2,8 +2,6 @@
   display: flex;
   align-items: baseline;
   position: relative;
-  word-break: break-all;
-  overflow-wrap: break-word;
 }
 
 @media screen and (max-width: 500px) {
