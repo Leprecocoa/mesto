@@ -32,6 +32,7 @@
 /* Article style */
 @import url('../blocks/article/article.css');
 @import url('../blocks/article/__image/article__image.css');
+@import url('../blocks/article/__delete-button/article__delete-button.css');
 @import url('../blocks/article/__text/article__text.css');
 @import url('../blocks/article/__title/article__title.css');
 @import url('../blocks/article/__like-button/article__like-button.css');

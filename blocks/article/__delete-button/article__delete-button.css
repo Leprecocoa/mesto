@@ -1,0 +1,11 @@
+.article__delete-button {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  width: 18px;
+  height: 20px;
+  border: none;
+  background: url('../../../images/popup-delete.svg') center / 18px 19.3px
+    no-repeat;
+  cursor: pointer;
+}

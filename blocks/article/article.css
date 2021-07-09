@@ -1,4 +1,5 @@
 .article {
+  position: relative;
   max-width: 282px;
   border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -6,5 +7,4 @@
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   background-color: #fff;
-  overflow: hidden;
 }

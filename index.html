@@ -48,74 +48,7 @@
 
         <!-- Elements section -->
 
-        <section class="elements">
-          <article class="article">
-            <img
-              src="./images/elements-karachaevsk.jpg"
-              alt="Карачаевск. Обветшавший каменный монастырь на фоне горного склона."
-              class="article__image"
-            />
-            <div class="article__text">
-              <h2 class="article__title">Карачаевск</h2>
-              <button class="article__like-button" type="button"></button>
-            </div>
-          </article>
-          <article class="article">
-            <img
-              src="./images/elements-elbrus.jpg"
-              alt="Поле на закате. Вдали виднеется двуглавая вершина Эльбруса."
-              class="article__image"
-            />
-            <div class="article__text">
-              <h2 class="article__title">Гора Эльбрус</h2>
-              <button class="article__like-button" type="button"></button>
-            </div>
-          </article>
-          <article class="article">
-            <img
-              src="./images/elements-dombay.jpg"
-              alt="На переднем плане два склона, покрытые лесами, на фоне - заснеженная гора Домбая."
-              class="article__image"
-            />
-            <div class="article__text">
-              <h2 class="article__title">Домбай</h2>
-              <button class="article__like-button" type="button"></button>
-            </div>
-          </article>
-          <article class="article">
-            <img
-              src="./images/elements-elbrus.jpg"
-              alt="Поле на закате. Вдали виднеется двуглавая вершина Эльбруса."
-              class="article__image"
-            />
-            <div class="article__text">
-              <h2 class="article__title">Гора Эльбрус</h2>
-              <button class="article__like-button" type="button"></button>
-            </div>
-          </article>
-          <article class="article">
-            <img
-              src="./images/elements-dombay.jpg"
-              alt="На переднем плане два склона, покрытые лесами, на фоне - заснеженная гора Домбая."
-              class="article__image"
-            />
-            <div class="article__text">
-              <h2 class="article__title">Домбай</h2>
-              <button class="article__like-button" type="button"></button>
-            </div>
-          </article>
-          <article class="article">
-            <img
-              src="./images/elements-karachaevsk.jpg"
-              alt="Карачаевск. Обветшавший каменный монастырь на фоне горного склона."
-              class="article__image"
-            />
-            <div class="article__text">
-              <h2 class="article__title">Карачаево-Черкесия</h2>
-              <button class="article__like-button" type="button"></button>
-            </div>
-          </article>
-        </section>
+        <section class="elements"></section>
       </main>
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
@@ -123,11 +56,18 @@
 
       <!-- Popup -->
 
-      <div class="popup">
+      <div class="popup popup-profile">
         <div class="popup__container">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <button class="popup__close page__button" type="button"></button>
-          <form action="#" class="popup__form" name="popup">
+          <button
+            class="popup__close page__button popup__close_type_profile"
+            type="button"
+          ></button>
+          <form
+            action="#"
+            class="popup__form popup__form_type_profile"
+            name="popup"
+          >
             <input
               class="popup__input popup__input_value_name"
               type="text"
@@ -144,7 +84,54 @@
           </form>
         </div>
       </div>
+
+      <!-- Add card popup -->
+
+      <div class="popup popup-addcard">
+        <div class="popup__container">
+          <h2 class="popup__title">Новое место</h2>
+          <button
+            class="popup__close page__button popup__close_type_addcard"
+            type="button"
+          ></button>
+          <form
+            action="#"
+            class="popup__form popup__form_type_addcard"
+            name="addcard"
+          >
+            <input
+              class="popup__input popup__input_value_place-name"
+              type="text"
+              name="place-name"
+              placeholder="Название"
+            />
+            <input
+              class="popup__input popup__input_value_image-source"
+              type="text"
+              name="image-source"
+              placeholder="Ссылка на картинку"
+            />
+            <button class="popup__submit" type="submit">Создать</button>
+          </form>
+        </div>
+      </div>
     </div>
+
+    <!-- Card template -->
+
+    <template class="article__template">
+      <article class="article">
+        <img src="" alt="Изображение" class="article__image" />
+        <button
+          class="article__delete-button page__button"
+          type="button"
+        ></button>
+        <div class="article__text">
+          <h2 class="article__title"></h2>
+          <button class="article__like-button" type="button"></button>
+        </div>
+      </article>
+    </template>
 
     <script src="./scripts/index.js"></script>
   </body>
