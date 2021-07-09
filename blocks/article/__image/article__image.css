@@ -1,4 +1,5 @@
 .article__image {
+  display: inline-block;
   width: 282px;
   height: 282px;
   border-top-left-radius: 10px;
