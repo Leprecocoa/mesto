@@ -1,0 +1,21 @@
+.image-popup__close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: url('../../../images/form-close-icon.svg') center / 32px 32px
+    no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 550px) {
+  .image-popup__close {
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+  }
+}
