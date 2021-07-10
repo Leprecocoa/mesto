@@ -31,33 +31,6 @@ const imagePopupClose = document.querySelector(".image-popup__close");
 const image = document.querySelector(".image-popup__image");
 const imageTitle = document.querySelector(".image-popup__title");
 
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
 function openPopup(popup) {
   popup.classList.add("popup_opened");
 }
@@ -86,10 +59,12 @@ function setUpImage(card, item) {
   cardImage.addEventListener("click", () => {
     showImagePopup();
     image.src = cardImage.src;
+    image.alt = cardTitle.textContent;
     imageTitle.textContent = cardTitle.textContent;
   });
   // Добавление контента в карточку
   cardImage.src = item.link;
+  cardImage.alt = item.name;
 }
 
 // Попап добавления карточек
@@ -138,13 +113,13 @@ function createCard(item) {
 }
 
 // Добавление карточки на страницу
-function prependCard(card) {
-  cardElements.prepend(card);
+function prependCard(card, place) {
+  place.prepend(card);
 }
 
 // Добавление карточки
 function addCard(item) {
-  prependCard(createCard(item));
+  prependCard(createCard(item), cardElements);
 }
 
 // Добавление карточки из элементов массива
