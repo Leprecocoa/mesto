@@ -68,18 +68,24 @@
             class="popup__form popup__form_type_profile"
             name="popup"
           >
-            <input
-              class="popup__input popup__input_value_name"
-              type="text"
-              name="name"
-              placeholder="Имя"
-            />
-            <input
-              class="popup__input popup__input_value_about"
-              type="text"
-              name="about"
-              placeholder="О себе"
-            />
+            <label class="popup__label">
+              <input
+                class="popup__input popup__input_value_name"
+                type="text"
+                name="name"
+                placeholder="Имя"
+              />
+              <span class="popup__error-span"></span>
+            </label>
+            <label class="popup__label">
+              <input
+                class="popup__input popup__input_value_about"
+                type="text"
+                name="about"
+                placeholder="О себе"
+              />
+              <span class="popup__error-span"></span>
+            </label>
             <button class="popup__submit" type="submit">Сохранить</button>
           </form>
         </div>
@@ -99,18 +105,24 @@
             class="popup__form popup__form_type_addcard"
             name="addcard"
           >
-            <input
-              class="popup__input popup__input_value_place-name"
-              type="text"
-              name="place-name"
-              placeholder="Название"
-            />
-            <input
-              class="popup__input popup__input_value_image-source"
-              type="text"
-              name="image-source"
-              placeholder="Ссылка на картинку"
-            />
+            <label class="popup__label">
+              <input
+                class="popup__input popup__input_value_place-name"
+                type="text"
+                name="place-name"
+                placeholder="Название"
+              />
+              <span class="popup__error-span"></span>
+            </label>
+            <label class="popup__label">
+              <input
+                class="popup__input popup__input_value_image-source"
+                type="text"
+                name="image-source"
+                placeholder="Ссылка на картинку"
+              />
+              <span class="popup__error-span"></span>
+            </label>
             <button class="popup__submit" type="submit">Создать</button>
           </form>
         </div>

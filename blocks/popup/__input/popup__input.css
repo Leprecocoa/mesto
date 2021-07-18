@@ -9,10 +9,4 @@
   outline: none;
 }
 
-.popup__input:first-of-type {
-  margin-bottom: 30px;
-}
 
-.popup__input:last-of-type {
-  margin-bottom: 45px;
-}
