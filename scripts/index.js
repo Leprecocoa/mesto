@@ -31,12 +31,34 @@ const imagePopupClose = document.querySelector(".image-popup__close");
 const image = document.querySelector(".image-popup__image");
 const imageTitle = document.querySelector(".image-popup__title");
 
+// Функция закрытия попапов при клике на оверлей
+
+function closePopupByClickingOutside(evt) {
+  if (evt.target === evt.currentTarget) {
+    evt.target.classList.remove("popup_opened");
+  }
+}
+
+// Функция закрытия попапов при нажатии на Esc
+
+function closePopupByPressingEsc(evt) {
+  if (evt.key === "Escape") {
+    document.querySelectorAll(".popup").forEach((popup) => {
+      popup.classList.remove("popup_opened");
+    });
+  }
+}
+
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  popup.addEventListener("click", closePopupByClickingOutside);
+  document.addEventListener("keydown", closePopupByPressingEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  popup.removeEventListener("click", closePopupByClickingOutside);
+  document.removeEventListener("keydown", closePopupByPressingEsc);
 }
 
 // секция создания карточки
@@ -167,37 +189,6 @@ function onProfileFormSubmit(evt) {
 }
 
 // профиль конец
-
-// Функция закрытия попапов при клике на оверлей
-
-function closePopupByClickingOutside(evt) {
-  if (evt.target === evt.currentTarget) {
-    evt.target.classList.remove("popup_opened");
-  }
-  evt.target.removeEventListener("mousedown", closePopupByClickingOutside);
-}
-
-// Слушатель закрытия попапов при клике на оверлей
-
-const popupList = Array.from(document.querySelectorAll(".popup"));
-popupList.forEach((popup) => {
-  popup.addEventListener("mousedown", closePopupByClickingOutside);
-});
-
-// Функция закрытия попапов при нажатии на Esc
-
-function closePopupByPressingEsc(evt) {
-  if (evt.key === "Escape") {
-    popupList.forEach((popup) => {
-      popup.classList.remove("popup_opened");
-    });
-  }
-  document.removeEventListener("keydown", closePopupByPressingEsc);
-}
-
-// Слушатель закрытия попапов при нажатии на Esc
-
-document.addEventListener("keydown", closePopupByPressingEsc);
 
 // Слушатели попапа профиля
 profileShowButton.addEventListener("click", showProfilePopup);
