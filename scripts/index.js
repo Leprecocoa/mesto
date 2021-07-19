@@ -168,6 +168,37 @@ function onProfileFormSubmit(evt) {
 
 // профиль конец
 
+// Функция закрытия попапов при клике на оверлей
+
+function closePopupByClickingOutside(evt) {
+  if (evt.target === evt.currentTarget) {
+    evt.target.classList.remove("popup_opened");
+  }
+  evt.target.removeEventListener("mousedown", closePopupByClickingOutside);
+}
+
+// Слушатель закрытия попапов при клике на оверлей
+
+const popupList = Array.from(document.querySelectorAll(".popup"));
+popupList.forEach((popup) => {
+  popup.addEventListener("mousedown", closePopupByClickingOutside);
+});
+
+// Функция закрытия попапов при нажатии на Esc
+
+function closePopupByPressingEsc(evt) {
+  if (evt.key === "Escape") {
+    popupList.forEach((popup) => {
+      popup.classList.remove("popup_opened");
+    });
+  }
+  document.removeEventListener("keydown", closePopupByPressingEsc);
+}
+
+// Слушатель закрытия попапов при нажатии на Esc
+
+document.addEventListener("keydown", closePopupByPressingEsc);
+
 // Слушатели попапа профиля
 profileShowButton.addEventListener("click", showProfilePopup);
 profileCloseButton.addEventListener("click", hideProfilePopup);

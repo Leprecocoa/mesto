@@ -1,13 +1,12 @@
 .popup__label {
-  position: relative;
   display: inline-block;
   width: 100%;
 }
 
 .popup__label:first-of-type {
-  margin-bottom: 30px;
+  padding-bottom: 35px;
 }
 
 .popup__label:last-of-type {
-  margin-bottom: 45px;
+  padding-bottom: 45px;
 }
