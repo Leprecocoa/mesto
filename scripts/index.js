@@ -64,6 +64,11 @@ function closePopup(popup) {
   removeEventListeners();
 }
 
+// function disableSubmitButton() {
+//   // const activePopup = document.querySelector(".popup__opened");
+//   const submitButton = document.querySelector(".popup__submit");
+// }
+
 // секция создания карточки
 
 // Функция открытия попапа с картинкой
@@ -160,6 +165,9 @@ function onAddCardFormSubmit(evt) {
   addCard({ name, link });
   hideAddCardPopup();
   addCardFormElement.reset();
+  addCardFormElement
+    .querySelector(".popup__submit")
+    .classList.add("popup__submit_disabled");
 }
 
 // создание карточки конец
