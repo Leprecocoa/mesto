@@ -88,9 +88,9 @@ function addCheckValidityListeners(
   formElement,
   inputSelector,
   submitButtonSelector,
-  errorClass,
   inputErrorClass,
-  inactiveButtonClass
+  inactiveButtonClass,
+  errorClass
 ) {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
@@ -108,9 +108,9 @@ function setEventListeners(
   formElement,
   inputSelector,
   submitButtonSelector,
-  errorClass,
   inputErrorClass,
-  inactiveButtonClass
+  inactiveButtonClass,
+  errorClass
 ) {
   formElement.addEventListener("submit", (evt) => {
     evt.preventDefault();
@@ -119,9 +119,9 @@ function setEventListeners(
     formElement,
     inputSelector,
     submitButtonSelector,
-    errorClass,
     inputErrorClass,
-    inactiveButtonClass
+    inactiveButtonClass,
+    errorClass
   );
 }
 
@@ -141,9 +141,9 @@ function enableValidation({
       formElement,
       inputSelector,
       submitButtonSelector,
-      errorClass,
       inputErrorClass,
-      inactiveButtonClass
+      inactiveButtonClass,
+      errorClass
     )
   );
 }

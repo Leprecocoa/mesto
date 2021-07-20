@@ -22,14 +22,13 @@ const imageInputAddCard = document.querySelector(
 
 // Переменные карточки
 const cardElements = document.querySelector(".elements");
-const cardTemplateContent =
-  document.querySelector(".article__template").content;
+const cardTemplateContent = document.querySelector(".article-template").content;
 
 // Переменные попапа с картинкой
 const imagePopupContainer = document.querySelector(".image-popup");
 const imagePopupClose = document.querySelector(".image-popup__close");
-const image = document.querySelector(".image-popup__image");
-const imageTitle = document.querySelector(".image-popup__title");
+const imagePopup = document.querySelector(".image-popup__image");
+const imagePopupTitle = document.querySelector(".image-popup__title");
 
 // Функция закрытия попапов при клике на оверлей
 
@@ -43,9 +42,7 @@ function closePopupByClickingOutside(evt) {
 
 function closePopupByPressingEsc(evt) {
   if (evt.key === "Escape") {
-    document.querySelectorAll(".popup").forEach((popup) => {
-      popup.classList.remove("popup_opened");
-    });
+    document.querySelector(".popup_opened").classList.remove("popup_opened");
   }
 }
 
@@ -64,7 +61,10 @@ function closePopup(popup) {
 // секция создания карточки
 
 // Функция открытия попапа с картинкой
-function showImagePopup() {
+function showImagePopup(cardImageSrc, cardTitleTextContent) {
+  imagePopup.src = cardImageSrc;
+  imagePopup.alt = cardTitleTextContent;
+  imagePopupTitle.textContent = cardTitleTextContent;
   openPopup(imagePopupContainer);
 }
 
@@ -79,10 +79,7 @@ function setUpImage(card, item) {
   const cardTitle = card.querySelector(".article__title");
   // Попап картинки карточки
   cardImage.addEventListener("click", () => {
-    showImagePopup();
-    image.src = cardImage.src;
-    image.alt = cardTitle.textContent;
-    imageTitle.textContent = cardTitle.textContent;
+    showImagePopup(cardImage.src, cardTitle.textContent);
   });
   // Добавление контента в карточку
   cardImage.src = item.link;
@@ -126,7 +123,7 @@ function setUpLike(card) {
 
 // Создание карточки
 function createCard(item) {
-  const card = cardTemplateContent.cloneNode(true);
+  const card = cardTemplateContent.querySelector(".article").cloneNode(true);
   setUpDelete(card);
   setUpLike(card);
   setUpImage(card, item);
