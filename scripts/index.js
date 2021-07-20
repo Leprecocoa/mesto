@@ -30,32 +30,38 @@ const imagePopupClose = document.querySelector(".image-popup__close");
 const imagePopup = document.querySelector(".image-popup__image");
 const imagePopupTitle = document.querySelector(".image-popup__title");
 
+function removeEventListeners() {
+  popup.removeEventListener("mousedown", closePopupByClickingOutside);
+  document.removeEventListener("keydown", closePopupByPressingEsc);
+}
+
 // Функция закрытия попапов при клике на оверлей
 
 function closePopupByClickingOutside(evt) {
   if (evt.target === evt.currentTarget) {
     evt.target.classList.remove("popup_opened");
   }
+  removeEventListeners();
 }
 
 // Функция закрытия попапов при нажатии на Esc
 
 function closePopupByPressingEsc(evt) {
   if (evt.key === "Escape") {
-    document.querySelector(".popup_opened").classList.remove("popup_opened");
+    popup.classList.remove("popup_opened");
   }
+  removeEventListeners();
 }
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  popup.addEventListener("click", closePopupByClickingOutside);
+  popup.addEventListener("mousedown", closePopupByClickingOutside);
   document.addEventListener("keydown", closePopupByPressingEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  popup.removeEventListener("click", closePopupByClickingOutside);
-  document.removeEventListener("keydown", closePopupByPressingEsc);
+  removeEventListeners();
 }
 
 // секция создания карточки
