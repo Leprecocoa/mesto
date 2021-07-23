@@ -39,18 +39,17 @@ function removeEventListeners() {
 
 function closePopupByClickingOutside(evt) {
   if (evt.target === evt.currentTarget) {
-    evt.target.classList.remove("popup_opened");
+    closePopup(evt.target);
   }
-  removeEventListeners();
 }
 
 // Функция закрытия попапов при нажатии на Esc
 
 function closePopupByPressingEsc(evt) {
   if (evt.key === "Escape") {
-    popup.classList.remove("popup_opened");
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
   }
-  removeEventListeners();
 }
 
 function openPopup(popup) {
@@ -63,11 +62,6 @@ function closePopup(popup) {
   popup.classList.remove("popup_opened");
   removeEventListeners();
 }
-
-// function disableSubmitButton() {
-//   // const activePopup = document.querySelector(".popup__opened");
-//   const submitButton = document.querySelector(".popup__submit");
-// }
 
 // секция создания карточки
 
