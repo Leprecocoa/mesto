@@ -1,8 +1,8 @@
 export class Card {
-  constructor(data, cardSelector, showImagePopup) {
+  constructor(data, cardSelector, handleCardClick) {
     this._data = data;
     this._cardSelector = cardSelector;
-    this._showImagePopup = showImagePopup;
+    this._handleCardClick = handleCardClick;
   }
   // Получение шаблона карточки
   _getCardTemplate() {
@@ -29,10 +29,9 @@ export class Card {
       this._setUpDelete();
     });
     this._cardImageElement.addEventListener("click", () => {
-      this._showImagePopup(this._data.link, this._data.name);
+      this._handleCardClick();
     });
   }
-
   // Метод создания карточки
   generateCard() {
     this._element = this._getCardTemplate();
