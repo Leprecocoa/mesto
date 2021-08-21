@@ -1,16 +1,23 @@
 import "./pages/index.css";
+import {
+  profileShowButton,
+  addCardButton,
+  cardTemplateSelector,
+  cardContainerSelector,
+  popupFormAddcardSelector,
+  popupFormProfileSelector,
+  popupAddCardSelector,
+  profileTitleSelector,
+  profileSubtitleSelector,
+  nameInputSelector,
+  aboutInputSelector,
+} from "./scripts/utils/constants.js";
 import { Section } from "./scripts/components/Section.js";
 import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
 import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
 import { UserInfo } from "./scripts/components/UserInfo.js";
 import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
-
-// Переменные попапа редактирования профиля
-const profileShowButton = document.querySelector(".profile__edit-button");
-
-// Переменные попапа добавления карточки
-const addCardButton = document.querySelector(".profile__addcard-button ");
 
 // секция создания карточки
 
@@ -42,59 +49,56 @@ const initialCards = [
   },
 ];
 
+// Экземпляр класса попапа с картинкой
+const popupWithImage = new PopupWithImage();
+
+// Функция создания карточки
+function createCard(cardItem) {
+  const card = new Card(cardItem, cardTemplateSelector, () => {
+    popupWithImage.open(cardItem);
+  });
+  const cardElement = card.generateCard();
+  cardList.addItem(cardElement);
+}
+
+// Рендер массива начальных карточекы
 const cardList = new Section(
   {
     data: initialCards,
-    renderer: (cardItem) => {
-      const card = new Card(cardItem, ".article-template", () => {
-        const popup = new PopupWithImage(cardItem);
-        popup.open();
-      });
-      const cardElement = card.generateCard();
-      cardList.addItem(cardElement);
-    },
+    renderer: (cardItem) => createCard(cardItem),
   },
-  ".elements"
+  cardContainerSelector
 );
 cardList.renderItems();
 
+// Попап добавления карточки
 const addCardPopup = new PopupWithForm(
   {
-    formSelector: ".popup__form_type_addcard",
+    formSelector: popupFormAddcardSelector,
     handleFormSubmit: (formData) => {
-      const card = new Card(
-        {
-          name: formData["place-name"],
-          link: formData["image-source"],
-        },
-        ".article-template",
-        () => {
-          const popup = new PopupWithImage({
-            name: formData["place-name"],
-            link: formData["image-source"],
-          });
-          popup.open();
-        }
-      );
-      const cardElement = card.generateCard();
-      cardList.addItem(cardElement);
+      createCard({
+        name: formData["place-name"],
+        link: formData["image-source"],
+      });
     },
   },
-  ".popup-addcard"
+  popupAddCardSelector
 );
 
 // создание карточки конец
 
 // секция профиля
 
+// Экземпляр класса пропиля пользователя
 const userInfo = new UserInfo({
-  name: ".profile__title",
-  about: ".profile__subtitle",
+  name: profileTitleSelector,
+  about: profileSubtitleSelector,
 });
 
+// Попап редактирования профиля пользователя
 const profilePopup = new PopupWithForm(
   {
-    formSelector: ".popup__form_type_profile",
+    formSelector: popupFormProfileSelector,
     handleFormSubmit: (formData) => {
       userInfo.setUserInfo(formData);
     },
@@ -117,14 +121,14 @@ const validationParams = {
 // Экземпляр класса валидации формы профиля
 const profileFormValidator = new FormValidator(
   validationParams,
-  ".popup__form_type_profile"
+  popupFormProfileSelector
 );
 profileFormValidator.enableValidation();
 
 // Экземпляр класса валидации формы добавления карточки
 const addcardFormValidator = new FormValidator(
   validationParams,
-  ".popup__form_type_addcard"
+  popupFormAddcardSelector
 );
 addcardFormValidator.enableValidation();
 
@@ -132,10 +136,8 @@ addcardFormValidator.enableValidation();
 profileShowButton.addEventListener("click", () => {
   profilePopup.open();
   const profileUserInfo = userInfo.getUserInfo();
-  document.querySelector(".popup__input_value_name").value =
-    profileUserInfo.name;
-  document.querySelector(".popup__input_value_about").value =
-    profileUserInfo.about;
+  document.querySelector(nameInputSelector).value = profileUserInfo.name;
+  document.querySelector(aboutInputSelector).value = profileUserInfo.about;
   profileFormValidator.resetValidation();
 });
 
