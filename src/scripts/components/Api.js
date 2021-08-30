@@ -39,6 +39,30 @@ export class Api {
         name: data.name,
         about: data.about,
       }),
-    });
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => console.log(err));
+  }
+  sendCards(card) {
+    return fetch(this.cardsUrl, {
+      method: "POST",
+      headers: this.headers,
+      body: JSON.stringify({
+        name: card.name,
+        link: card.link,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => console.log(err));
   }
 }
