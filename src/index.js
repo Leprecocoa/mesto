@@ -18,6 +18,7 @@ import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
 import { UserInfo } from "./scripts/components/UserInfo.js";
 import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
+import { Api } from "./scripts/components/Api.js";
 
 // секция создания карточки
 
@@ -89,23 +90,6 @@ const addCardPopup = new PopupWithForm(
 
 // секция профиля
 
-// Экземпляр класса пропиля пользователя
-const userInfo = new UserInfo({
-  name: profileTitleSelector,
-  about: profileSubtitleSelector,
-});
-
-// Попап редактирования профиля пользователя
-const profilePopup = new PopupWithForm(
-  {
-    formSelector: popupFormProfileSelector,
-    handleFormSubmit: (formData) => {
-      userInfo.setUserInfo(formData);
-    },
-  },
-  ".popup-profile"
-);
-
 // профиль конец
 
 // Объект параметров валидации
@@ -132,17 +116,37 @@ const addcardFormValidator = new FormValidator(
 );
 addcardFormValidator.enableValidation();
 
-// Слушатели попапа профиля
-profileShowButton.addEventListener("click", () => {
-  profilePopup.open();
-  const profileUserInfo = userInfo.getUserInfo();
-  document.querySelector(nameInputSelector).value = profileUserInfo.name;
-  document.querySelector(aboutInputSelector).value = profileUserInfo.about;
-  profileFormValidator.resetValidation();
-});
-
 // Слушатели попапа добавления карточки
 addCardButton.addEventListener("click", () => {
   addCardPopup.open();
   addcardFormValidator.resetValidation();
+});
+
+const api = new Api({ url: "https://nomoreparties.co/v1/cohort-27/users/me" });
+
+api.getUserInfo().then((data) => {
+  // Экземпляр класса пропиля пользователя
+  const userInfo = new UserInfo({
+    name: profileTitleSelector,
+    about: profileSubtitleSelector,
+  });
+  userInfo.setUserInfo(data);
+  // Попап редактирования профиля пользователя
+  const profilePopup = new PopupWithForm(
+    {
+      formSelector: popupFormProfileSelector,
+      handleFormSubmit: (formData) => {
+        userInfo.setUserInfo(formData);
+      },
+    },
+    ".popup-profile"
+  );
+  // Слушатели попапа профиля
+  profileShowButton.addEventListener("click", () => {
+    profilePopup.open();
+    const profileUserInfo = userInfo.getUserInfo();
+    document.querySelector(nameInputSelector).value = profileUserInfo.name;
+    document.querySelector(aboutInputSelector).value = profileUserInfo.about;
+    profileFormValidator.resetValidation();
+  });
 });
