@@ -53,25 +53,6 @@ const initialCards = [
 // Экземпляр класса попапа с картинкой
 const popupWithImage = new PopupWithImage();
 
-// Функция создания карточки
-function createCard(cardItem) {
-  const card = new Card(cardItem, cardTemplateSelector, () => {
-    popupWithImage.open(cardItem);
-  });
-  const cardElement = card.generateCard();
-  cardList.addItem(cardElement);
-}
-
-// Рендер массива начальных карточекы
-const cardList = new Section(
-  {
-    data: initialCards,
-    renderer: (cardItem) => createCard(cardItem),
-  },
-  cardContainerSelector
-);
-cardList.renderItems();
-
 // Попап добавления карточки
 const addCardPopup = new PopupWithForm(
   {
@@ -122,8 +103,12 @@ addCardButton.addEventListener("click", () => {
   addcardFormValidator.resetValidation();
 });
 
-const api = new Api({ url: "https://nomoreparties.co/v1/cohort-27/users/me" });
+const api = new Api({
+  profileUrl: "https://nomoreparties.co/v1/cohort-27/users/me",
+  cardsUrl: "https://mesto.nomoreparties.co/v1/cohort-27/cards",
+});
 
+// Загрузка инфо пользователя
 api.getUserInfo().then((data) => {
   // Экземпляр класса пропиля пользователя
   const userInfo = new UserInfo({
@@ -149,4 +134,24 @@ api.getUserInfo().then((data) => {
     document.querySelector(aboutInputSelector).value = profileUserInfo.about;
     profileFormValidator.resetValidation();
   });
+});
+
+api.getCards().then((cards) => {
+  // Рендер массива начальных карточекы
+  const cardList = new Section(
+    {
+      data: cards,
+      renderer: (cardItem) => createCard(cardItem),
+    },
+    cardContainerSelector
+  );
+  cardList.renderItems();
+  // Функция создания карточки
+  function createCard(cardItem) {
+    const card = new Card(cardItem, cardTemplateSelector, () => {
+      popupWithImage.open(cardItem);
+    });
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+  }
 });
