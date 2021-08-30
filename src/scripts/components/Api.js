@@ -31,4 +31,14 @@ export class Api {
       })
       .catch((err) => console.log(err));
   }
+  sendProfileInfo(data) {
+    return fetch(this.profileUrl, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify({
+        name: data.name,
+        about: data.about,
+      }),
+    });
+  }
 }

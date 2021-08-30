@@ -121,6 +121,7 @@ api.getUserInfo().then((data) => {
     {
       formSelector: popupFormProfileSelector,
       handleFormSubmit: (formData) => {
+        api.sendProfileInfo(formData);
         userInfo.setUserInfo(formData);
       },
     },
