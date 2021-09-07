@@ -8,5 +8,5 @@
   background: url('../../../images/popup-delete.svg') center / 18px 19.3px
     no-repeat;
   cursor: pointer;
-  visibility: hidden;
+  /* visibility: hidden; */
 }

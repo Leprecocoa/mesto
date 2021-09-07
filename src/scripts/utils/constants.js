@@ -13,3 +13,4 @@ export const profileTitleSelector = ".profile__title";
 export const profileSubtitleSelector = ".profile__subtitle";
 export const nameInputSelector = ".popup__input_value_name";
 export const aboutInputSelector = ".popup__input_value_about";
+export const popupDeleteCardSelector = ".popup-deletecard";

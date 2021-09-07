@@ -11,10 +11,12 @@ import {
   profileSubtitleSelector,
   nameInputSelector,
   aboutInputSelector,
+  popupDeleteCardSelector,
 } from "./scripts/utils/constants.js";
 import { Section } from "./scripts/components/Section.js";
 import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
 import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
+import { PopupDeleteCard } from "./scripts/components/PopupDeleteCard.js";
 import { UserInfo } from "./scripts/components/UserInfo.js";
 import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
@@ -113,6 +115,9 @@ const addCardPopup = new PopupWithForm(
   },
   popupAddCardSelector
 );
+
+const popupDeleteCard = new PopupDeleteCard(popupDeleteCardSelector);
+
 // Функция создания карточки
 function createCard(cardItem) {
   const card = new Card(
@@ -120,6 +125,9 @@ function createCard(cardItem) {
     cardTemplateSelector,
     () => {
       popupWithImage.open(cardItem);
+    },
+    () => {
+      popupDeleteCard.open();
     },
     api,
     myId

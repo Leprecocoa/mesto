@@ -1,8 +1,9 @@
 export class Card {
-  constructor(data, cardSelector, handleCardClick, api, myId) {
+  constructor(data, cardSelector, handleCardClick, handleDelete, api, myId) {
     this._data = data;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDelete = handleDelete;
     this._api = api;
     this._myId = myId;
   }
@@ -40,7 +41,7 @@ export class Card {
       this._setUpLike();
     });
     this._cardDeleteButton.addEventListener("click", () => {
-      this._setUpDelete();
+      this._handleDelete();
     });
     this._cardImageElement.addEventListener("click", () => {
       this._handleCardClick();
