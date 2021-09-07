@@ -7,28 +7,24 @@ export class Api {
     authorization: "15ef627d-6933-45cc-b246-9992258b4fe6",
     "Content-Type": "application/json",
   };
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
   getUserInfo() {
     return fetch(this.profileUrl, {
       headers: this.headers,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this._checkResponse)
       .catch((err) => console.log(err));
   }
   getCards() {
     return fetch(this.cardsUrl, {
       headers: this.headers,
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this._checkResponse)
       .catch((err) => console.log(err));
   }
   sendProfileInfo(data) {
@@ -40,12 +36,7 @@ export class Api {
         about: data.about,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this._checkResponse)
       .catch((err) => console.log(err));
   }
   sendCards(card) {
@@ -57,12 +48,15 @@ export class Api {
         link: card.link,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this._checkResponse)
+      .catch((err) => console.log(err));
+  }
+  sendLikes(id) {
+    fetch(`${this.cardsUrl}/likes/${id}`, {
+      method: "PUT",
+      headers: this.headers,
+    })
+      .then(this._checkResponse)
       .catch((err) => console.log(err));
   }
 }

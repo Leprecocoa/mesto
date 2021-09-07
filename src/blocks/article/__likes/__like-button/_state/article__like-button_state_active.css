@@ -1,0 +1,4 @@
+.article__like-button_state_active {
+  background: url('../../../../../images/elements-like-icon-active.svg') center /
+    22px 19px no-repeat;
+}

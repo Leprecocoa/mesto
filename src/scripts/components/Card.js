@@ -1,8 +1,10 @@
 export class Card {
-  constructor(data, cardSelector, handleCardClick) {
+  constructor(data, cardSelector, handleCardClick, api, myId) {
     this._data = data;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._api = api;
+    this._myId = myId;
   }
   // Получение шаблона карточки
   _getCardTemplate() {
@@ -12,9 +14,21 @@ export class Card {
       .cloneNode(true);
     return cardElement;
   }
+  _setLike() {
+    this._api.sendLikes(this._myId);
+    this._cardLikeButton.classList.add("article__like-button_state_active");
+  }
+  _deleteLike() {
+    this._cardLikeButton.classList.remove("article__like-button_state_active");
+  }
   // Метод лайка карточки
   _setUpLike() {
-    this._cardLikeButton.classList.toggle("article__like-button_state_active");
+    console.log(this._data.likes);
+    this._data.likes.some((id) => {
+      id === this._myId;
+    })
+      ? this._deleteLike()
+      : this._setLike();
   }
   // Метод удаления карточки
   _setUpDelete() {
@@ -35,6 +49,8 @@ export class Card {
   // Метод создания карточки
   generateCard() {
     this._element = this._getCardTemplate();
+    this._element.querySelector(".article__like-number").textContent =
+      this._data.likes.length;
     this._element.querySelector(".article__image").src = this._data.link;
     this._element.querySelector(".article__image").alt = this._data.name;
     this._element.querySelector(".article__title").textContent =

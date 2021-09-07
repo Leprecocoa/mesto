@@ -33,10 +33,13 @@
 @import url('../blocks/article/article.css');
 @import url('../blocks/article/__image/article__image.css');
 @import url('../blocks/article/__delete-button/article__delete-button.css');
+@import url('../blocks/article/__delete-button/_visible/article__delete-button_visible.css');
 @import url('../blocks/article/__text/article__text.css');
 @import url('../blocks/article/__title/article__title.css');
-@import url('../blocks/article/__like-button/article__like-button.css');
-@import url('../blocks/article/__like-button/_state/article__like-button_state_active.css');
+@import url('../blocks/article/__likes/article__likes.css');
+@import url('../blocks/article/__likes/__like-button/article__like-button.css');
+@import url('../blocks/article/__likes/__like-button/_state/article__like-button_state_active.css');
+@import url('../blocks/article/__likes/__like-number/article__like-number.css');
 
 /* Footer style */
 @import url('../blocks/footer/footer.css');

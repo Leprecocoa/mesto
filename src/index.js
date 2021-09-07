@@ -60,13 +60,16 @@ const api = new Api({
   cardsUrl: "https://mesto.nomoreparties.co/v1/cohort-27/cards",
 });
 
+let myId;
 // Загрузка инфо пользователя
 api.getUserInfo().then((data) => {
+  myId = data._id;
   // Экземпляр класса пропиля пользователя
   const userInfo = new UserInfo({
     name: profileTitleSelector,
     about: profileSubtitleSelector,
   });
+
   userInfo.setUserInfo(data);
   // Попап редактирования профиля пользователя
   const profilePopup = new PopupWithForm(
@@ -89,9 +92,52 @@ api.getUserInfo().then((data) => {
   });
 });
 
+// Попап добавления карточки
+const addCardPopup = new PopupWithForm(
+  {
+    formSelector: popupFormAddcardSelector,
+    handleFormSubmit: (formData) => {
+      api
+        .sendCards({
+          name: formData["place-name"],
+          link: formData["image-source"],
+        })
+        .then((item) => {
+          createCard({
+            name: item.name,
+            link: item.link,
+            likes: item.likes,
+          });
+        });
+    },
+  },
+  popupAddCardSelector
+);
+// Функция создания карточки
+function createCard(cardItem) {
+  const card = new Card(
+    cardItem,
+    cardTemplateSelector,
+    () => {
+      popupWithImage.open(cardItem);
+    },
+    api,
+    myId
+  );
+  const cardElement = card.generateCard();
+  cardList.addItem(cardElement);
+}
+// Слушатели попапа добавления карточки
+addCardButton.addEventListener("click", () => {
+  addCardPopup.open();
+  addcardFormValidator.resetValidation();
+});
+
+let cardList;
 api.getCards().then((cards) => {
+  cards.reverse();
   // Рендер массива начальных карточек
-  const cardList = new Section(
+  cardList = new Section(
     {
       data: cards,
       renderer: (cardItem) => createCard(cardItem),
@@ -99,35 +145,4 @@ api.getCards().then((cards) => {
     cardContainerSelector
   );
   cardList.renderItems();
-  // Попап добавления карточки
-  const addCardPopup = new PopupWithForm(
-    {
-      formSelector: popupFormAddcardSelector,
-      handleFormSubmit: (formData) => {
-        createCard({
-          name: formData["place-name"],
-          link: formData["image-source"],
-        });
-        console.log(formData);
-        api.sendCards({
-          name: formData["place-name"],
-          link: formData["image-source"],
-        });
-      },
-    },
-    popupAddCardSelector
-  );
-  // Функция создания карточки
-  function createCard(cardItem) {
-    const card = new Card(cardItem, cardTemplateSelector, () => {
-      popupWithImage.open(cardItem);
-    });
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
-  }
-  // Слушатели попапа добавления карточки
-  addCardButton.addEventListener("click", () => {
-    addCardPopup.open();
-    addcardFormValidator.resetValidation();
-  });
 });

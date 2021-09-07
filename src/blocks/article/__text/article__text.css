@@ -1,6 +1,7 @@
 .article__text {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 25px 30px 31px 21px;
 }
 
