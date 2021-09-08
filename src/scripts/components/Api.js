@@ -52,8 +52,16 @@ export class Api {
       .catch((err) => console.log(err));
   }
   sendLikes(id) {
-    fetch(`${this.cardsUrl}/likes/${id}`, {
+    return fetch(`${this.cardsUrl}/likes/${id}`, {
       method: "PUT",
+      headers: this.headers,
+    })
+      .then(this._checkResponse)
+      .catch((err) => console.log(err));
+  }
+  deleteCard(id) {
+    return fetch(`${this.cardsUrl}/${id}`, {
+      method: "DELETE",
       headers: this.headers,
     })
       .then(this._checkResponse)

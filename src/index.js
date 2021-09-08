@@ -12,6 +12,7 @@ import {
   nameInputSelector,
   aboutInputSelector,
   popupDeleteCardSelector,
+  popupFormDeleteCardSelector,
 } from "./scripts/utils/constants.js";
 import { Section } from "./scripts/components/Section.js";
 import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
@@ -104,19 +105,24 @@ const addCardPopup = new PopupWithForm(
           name: formData["place-name"],
           link: formData["image-source"],
         })
-        .then((item) => {
-          createCard({
-            name: item.name,
-            link: item.link,
-            likes: item.likes,
-          });
+        .then(() => {
+          getCards();
         });
     },
   },
   popupAddCardSelector
 );
 
-const popupDeleteCard = new PopupDeleteCard(popupDeleteCardSelector);
+const popupDeleteCard = new PopupDeleteCard(
+  popupFormDeleteCardSelector,
+  popupDeleteCardSelector,
+  api,
+  (cardId) => {
+    api.deleteCard(cardId).then(() => {
+      getCards();
+    });
+  }
+);
 
 // Функция создания карточки
 function createCard(cardItem) {
@@ -127,7 +133,7 @@ function createCard(cardItem) {
       popupWithImage.open(cardItem);
     },
     () => {
-      popupDeleteCard.open();
+      popupDeleteCard.open(cardItem);
     },
     api,
     myId
@@ -142,15 +148,19 @@ addCardButton.addEventListener("click", () => {
 });
 
 let cardList;
-api.getCards().then((cards) => {
-  cards.reverse();
-  // Рендер массива начальных карточек
-  cardList = new Section(
-    {
-      data: cards,
-      renderer: (cardItem) => createCard(cardItem),
-    },
-    cardContainerSelector
-  );
-  cardList.renderItems();
-});
+
+function getCards() {
+  api.getCards().then((cards) => {
+    cards.reverse();
+    // Рендер массива начальных карточек
+    cardList = new Section(
+      {
+        data: cards,
+        renderer: (cardItem) => createCard(cardItem),
+      },
+      cardContainerSelector
+    );
+    cardList.renderItems();
+  });
+}
+getCards();

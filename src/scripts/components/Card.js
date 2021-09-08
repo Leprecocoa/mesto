@@ -1,11 +1,20 @@
 export class Card {
-  constructor(data, cardSelector, handleCardClick, handleDelete, api, myId) {
+  constructor(
+    data,
+    cardSelector,
+    handleCardClick,
+    handleDelete,
+    api,
+    myId,
+    cardId
+  ) {
     this._data = data;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDelete = handleDelete;
     this._api = api;
     this._myId = myId;
+    this._cardId = cardId;
   }
   // Получение шаблона карточки
   _getCardTemplate() {
@@ -32,7 +41,7 @@ export class Card {
       : this._setLike();
   }
   // Метод удаления карточки
-  _setUpDelete() {
+  removeCard() {
     this._element.remove();
   }
   // Установление слушателей на карточку
@@ -46,6 +55,13 @@ export class Card {
     this._cardImageElement.addEventListener("click", () => {
       this._handleCardClick();
     });
+  }
+  _setDeleteButton() {
+    if (this._data.owner._id === this._myId) {
+      this._element
+        .querySelector(".article__delete-button")
+        .classList.add("article__delete-button_visible");
+    }
   }
   // Метод создания карточки
   generateCard() {
@@ -62,6 +78,7 @@ export class Card {
     );
     this._cardImageElement = this._element.querySelector(".article__image");
     this._setEventListeners();
+    this._setDeleteButton();
     return this._element;
   }
 }
