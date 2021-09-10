@@ -11,9 +11,14 @@ export class PopupWithForm extends Popup {
   //Обработчик сабмита формы
   _submitForm(evt) {
     evt.preventDefault();
-    this._handleFormSubmit(this._getInputValues());
-    this._formElement.reset();
-    this.close();
+    const element = this._formElement.querySelector(".popup__submit");
+    const buttonText = element.textContent;
+    element.textContent = "Сохранение...";
+    this._handleFormSubmit(this._getInputValues()).then(() => {
+      this._formElement.reset();
+      this.close();
+      element.textContent = buttonText;
+    });
   }
   // Метод получения значений инпутов
   _getInputValues() {

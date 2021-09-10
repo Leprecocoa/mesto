@@ -14,7 +14,6 @@ export class Card {
     this._handleDelete = handleDelete;
     this._api = api;
     this._myId = myId;
-    this._cardId = cardId;
   }
   // Получение шаблона карточки
   _getCardTemplate() {
@@ -25,24 +24,28 @@ export class Card {
     return cardElement;
   }
   _setLike() {
-    this._api.sendLikes(this._myId);
+    this._api.sendLikes(this._data._id).then((res) => {
+      this._element.querySelector(".article__like-number").textContent =
+        res.likes.length;
+      this._data.likes = res.likes;
+    });
     this._cardLikeButton.classList.add("article__like-button_state_active");
   }
   _deleteLike() {
+    this._api.deleteLikes(this._data._id).then((res) => {
+      this._element.querySelector(".article__like-number").textContent =
+        res.likes.length;
+      this._data.likes = res.likes;
+    });
     this._cardLikeButton.classList.remove("article__like-button_state_active");
   }
   // Метод лайка карточки
   _setUpLike() {
-    console.log(this._data.likes);
-    this._data.likes.some((id) => {
-      id === this._myId;
+    this._data.likes.some((like) => {
+      return like._id === this._myId;
     })
       ? this._deleteLike()
       : this._setLike();
-  }
-  // Метод удаления карточки
-  removeCard() {
-    this._element.remove();
   }
   // Установление слушателей на карточку
   _setEventListeners() {
@@ -79,6 +82,13 @@ export class Card {
     this._cardImageElement = this._element.querySelector(".article__image");
     this._setEventListeners();
     this._setDeleteButton();
+    if (
+      this._data.likes.some((like) => {
+        return like._id === this._myId;
+      })
+    ) {
+      this._cardLikeButton.classList.add("article__like-button_state_active");
+    }
     return this._element;
   }
 }

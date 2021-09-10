@@ -24,11 +24,9 @@
         <!-- Profile section -->
 
         <section class="profile">
-          <img
-            src="<%=require('./images/profile-avatar.jpg')%>"
-            alt="Аватар пользователя."
-            class="profile__avatar"
-          />
+          <div class="profile__images">
+            <button class="profile__avatar-edit"></button>
+          </div>
           <div class="profile__info">
             <div class="profile__header">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -53,7 +51,7 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
 
-      <!-- Popup -->
+      <!-- Popup profile -->
 
       <div class="popup popup-profile">
         <div class="popup__container">
@@ -96,6 +94,39 @@
               />
               <div class="popup__error">
                 <span class="popup__error-span" id="profile-about-error"></span>
+              </div>
+            </label>
+            <button class="popup__submit" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Popup edit profile avatar -->
+
+      <div class="popup popup-editavatar">
+        <div class="popup__container">
+          <h2 class="popup__title">Обновить аватар</h2>
+          <button
+            class="popup__close page__button popup__close_type_editavatar"
+            type="button"
+          ></button>
+          <form
+            action="#"
+            class="popup__form popup__form_type_editavatar"
+            name="edit-avatar"
+            novalidate
+          >
+            <label class="popup__label">
+              <input
+                class="popup__input popup__input_value_avatar-link"
+                name="avatar-link"
+                placeholder="Ссылка на картинку"
+                required
+                type="url"
+                id="avatar-link"
+              />
+              <div class="popup__error">
+                <span class="popup__error-span" id="avatar-link-error"></span>
               </div>
             </label>
             <button class="popup__submit" type="submit">Сохранить</button>
@@ -159,7 +190,7 @@
         <div class="popup__container">
           <h2 class="popup__title">Вы уверены?</h2>
           <button
-            class="popup__close page__button popup__close_type_addcard"
+            class="popup__close page__button popup__close_type_deletecard"
             type="button"
           ></button>
           <form

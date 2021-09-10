@@ -15,3 +15,7 @@ export const nameInputSelector = ".popup__input_value_name";
 export const aboutInputSelector = ".popup__input_value_about";
 export const popupDeleteCardSelector = ".popup-deletecard";
 export const popupFormDeleteCardSelector = ".popup__form_type_deletecard";
+export const editAvatarButton = document.querySelector(".profile__avatar-edit");
+export const popupFormEditavatarSelector = ".popup__form_type_editavatar";
+export const popupEditavatarSelector = ".popup-editavatar";
+export const profileImageElement = document.querySelector(".profile__images");

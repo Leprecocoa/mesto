@@ -1,0 +1,29 @@
+.profile__avatar-edit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  padding: 0;
+  border: none;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.8)
+    url('../../../../images/profile-avatar-edit.svg') center / 26px 26px
+    no-repeat;
+  opacity: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-transition: all 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-transition: all 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-transition: all 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-transition: all 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+.profile__avatar-edit:hover {
+  opacity: 1;
+}

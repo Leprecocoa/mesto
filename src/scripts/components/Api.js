@@ -51,6 +51,14 @@ export class Api {
       .then(this._checkResponse)
       .catch((err) => console.log(err));
   }
+  deleteCard(id) {
+    return fetch(`${this.cardsUrl}/${id}`, {
+      method: "DELETE",
+      headers: this.headers,
+    })
+      .then(this._checkResponse)
+      .catch((err) => console.log(err));
+  }
   sendLikes(id) {
     return fetch(`${this.cardsUrl}/likes/${id}`, {
       method: "PUT",
@@ -59,10 +67,21 @@ export class Api {
       .then(this._checkResponse)
       .catch((err) => console.log(err));
   }
-  deleteCard(id) {
-    return fetch(`${this.cardsUrl}/${id}`, {
+  deleteLikes(id) {
+    return fetch(`${this.cardsUrl}/likes/${id}`, {
       method: "DELETE",
       headers: this.headers,
+    })
+      .then(this._checkResponse)
+      .catch((err) => console.log(err));
+  }
+  editAvatar(link) {
+    return fetch(`${this.profileUrl}/avatar`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: link,
+      }),
     })
       .then(this._checkResponse)
       .catch((err) => console.log(err));
