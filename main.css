@@ -6,7 +6,9 @@
 .header{border-bottom:1px solid rgba(84,84,84,.7);padding-bottom:40px}@media screen and (max-width:500px){.header{padding-bottom:30px}}
 .header__logo{height:33px;vertical-align:middle;width:142px}@media screen and (max-width:500px){.header__logo{height:24.4px;width:103.74px}}
 .profile{align-items:center;display:flex;padding-top:40px}@media screen and (max-width:800px){.profile{flex-wrap:wrap;justify-content:center}}@media screen and (max-width:600px){.profile{flex-direction:column}}
+.profile__images{background:50%/cover no-repeat;border-radius:50%;height:120px;position:relative;width:120px}
 .profile__avatar{border-radius:50%;-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;height:120px;width:120px}
+.profile__avatar-edit{background:rgba(0,0,0,.8) url(aad6285aa7a527f13bbc.svg) 50% /26px 26px no-repeat;border:none;border-radius:50%;cursor:pointer;height:120px;left:0;opacity:0;overflow:hidden;padding:0;position:absolute;top:0;transition:all .3s cubic-bezier(.6,-.28,.735,.045);-webkit-transition:all .3s cubic-bezier(.6,-.28,.735,.045);-moz-transition:all .3s cubic-bezier(.6,-.28,.735,.045);-ms-transition:all .3s cubic-bezier(.6,-.28,.735,.045);-o-transition:all .3s cubic-bezier(.6,-.28,.735,.045);width:120px}.profile__avatar-edit:hover{opacity:1}
 .profile__info{margin:0 auto 0 30px;max-width:350px}@media screen and (max-width:800px){.profile__info{margin:26px 0 0 30px}}@media screen and (max-width:600px){.profile__info{margin:30px 0 0;text-align:center}}
 .profile__header{align-items:baseline;display:flex;position:relative}@media screen and (max-width:500px){.profile__header{margin-bottom:9px}}
 .profile__title{font-size:42px;font-weight:500;line-height:114%;margin:0 15px 0 0;max-width:310px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media screen and (max-width:500px){.profile__title{font-size:27px;margin-right:0}}
@@ -16,11 +18,14 @@
 .elements{display:grid;gap:20px 17px;grid-template-columns:repeat(auto-fit,minmax(282px,1fr));justify-items:center;padding-top:48px}@media screen and (max-width:500px){.elements{padding-top:35px}}
 .article{background-color:#fff;border-radius:10px;-webkit-border-radius:10px;-moz-border-radius:10px;-ms-border-radius:10px;-o-border-radius:10px;max-width:282px;position:relative}
 .article__image{border-top-left-radius:10px;border-top-right-radius:10px;display:inline-block;height:282px;-o-object-fit:cover;object-fit:cover;vertical-align:middle;width:282px}
-.article__delete-button{background:url(994a3844f47ee987cf37.svg) 50%/18px 19.3px no-repeat;border:none;cursor:pointer;height:20px;position:absolute;right:15px;top:18px;width:18px}
-.article__text{display:flex;justify-content:space-between;padding:25px 30px 31px 21px}@media screen and (max-width:500px){.article__text{padding-bottom:25px}}
+.article__delete-button{background:url(994a3844f47ee987cf37.svg) 50%/18px 19.3px no-repeat;border:none;cursor:pointer;height:20px;position:absolute;right:15px;top:18px;visibility:hidden;width:18px}
+.article__delete-button_visible{visibility:visible}
+.article__text{align-items:center;display:flex;justify-content:space-between;padding:25px 30px 31px 21px}@media screen and (max-width:500px){.article__text{padding-bottom:25px}}
 .article__title{color:#000;font-size:24px;font-weight:900;line-height:29px;margin:0;max-width:198px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.article__likes{align-items:center;display:flex;flex-direction:column}
 .article__like-button{align-self:center;background:url(f4bf41f76307cf804372.svg) 50%/22px 19px no-repeat;border:none;cursor:pointer;height:19px;padding:0;transition:opacity .3s cubic-bezier(.6,-.28,.735,.045);-webkit-transition:opacity .3s cubic-bezier(.6,-.28,.735,.045);-moz-transition:opacity .3s cubic-bezier(.6,-.28,.735,.045);-ms-transition:opacity .3s cubic-bezier(.6,-.28,.735,.045);-o-transition:opacity .3s cubic-bezier(.6,-.28,.735,.045);width:22px}.article__like-button:hover{opacity:.5}
 .article__like-button_state_active{background:url(8beb8928ecd2d2734082.svg) 50%/22px 19px no-repeat}
+.article__like-number{color:#000;font-size:13px;line-height:16px;margin-top:3px}
 .footer{padding-top:60px}@media screen and (max-width:500px){.footer{padding-top:52px}}
 .footer__copyright{color:#545454;font-size:18px;font-weight:400;line-height:22px;margin:0}@media screen and (max-width:500px){.footer__copyright{font-size:14px;line-height:17px}}
 .popup{background-color:rgba(0,0,0,.5);bottom:0;display:flex;left:0;opacity:0;padding-top:32px;position:fixed;right:0;top:0;transition:visibility 0s,opacity .3s linear;visibility:hidden}
