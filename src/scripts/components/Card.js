@@ -87,17 +87,24 @@ export class Card {
   // Метод создания карточки
   generateCard() {
     this._element = this._getCardTemplate();
-    this._element.querySelector(".article__like-number").textContent =
-      this._data.likes.length;
-    this._element.querySelector(".article__image").src = this._data.link;
-    this._element.querySelector(".article__image").alt = this._data.name;
-    this._element.querySelector(".article__title").textContent =
-      this._data.name;
-    this._cardLikeButton = this._element.querySelector(".article__like-button");
-    this._cardDeleteButton = this._element.querySelector(
+    const articleImage = this._element.querySelector(".article__image");
+    const articleLikeNumber = this._element.querySelector(
+      ".article__like-number"
+    );
+    const articleLikeButton = this._element.querySelector(
+      ".article__like-button"
+    );
+    const articleDeleteButton = this._element.querySelector(
       ".article__delete-button"
     );
-    this._cardImageElement = this._element.querySelector(".article__image");
+    const articleTitle = this._element.querySelector(".article__title");
+    articleLikeNumber.textContent = this._data.likes.length;
+    articleImage.src = this._data.link;
+    articleImage.alt = this._data.name;
+    articleTitle.textContent = this._data.name;
+    this._cardLikeButton = articleLikeButton;
+    this._cardDeleteButton = articleDeleteButton;
+    this._cardImageElement = articleImage;
     this._setEventListeners();
     this._setDeleteButton();
     if (
