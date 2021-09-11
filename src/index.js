@@ -1,7 +1,5 @@
 import "./pages/index.css";
 import {
-  profileShowButton,
-  addCardButton,
   cardTemplateSelector,
   cardContainerSelector,
   popupFormAddcardSelector,
@@ -13,10 +11,8 @@ import {
   aboutInputSelector,
   popupDeleteCardSelector,
   popupFormDeleteCardSelector,
-  editAvatarButton,
   popupFormEditavatarSelector,
   popupEditavatarSelector,
-  profileImageElement,
 } from "./scripts/utils/constants.js";
 import { Section } from "./scripts/components/Section.js";
 import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
@@ -26,6 +22,12 @@ import { UserInfo } from "./scripts/components/UserInfo.js";
 import { Card } from "./scripts/components/Card.js";
 import { FormValidator } from "./scripts/components/FormValidator.js";
 import { Api } from "./scripts/components/Api.js";
+
+// Константы DOM элементов
+const profileShowButton = document.querySelector(".profile__edit-button");
+const addCardButton = document.querySelector(".profile__addcard-button ");
+const editAvatarButton = document.querySelector(".profile__avatar-edit");
+const profileImageElement = document.querySelector(".profile__images");
 
 // Экземпляр класса апи
 const api = new Api({
@@ -96,7 +98,6 @@ addCardPopup.setEventListeners();
 const popupDeleteCard = new PopupDeleteCard(
   popupFormDeleteCardSelector,
   popupDeleteCardSelector,
-  api,
   (cardId) => {
     api
       .deleteCard(cardId)
@@ -112,7 +113,6 @@ const popupDeleteCard = new PopupDeleteCard(
       .catch((err) => console.log(err));
   }
 );
-popupDeleteCard.setEventListeners();
 
 // Функция создания карточки
 function createCard(cardItem) {

@@ -34,7 +34,6 @@ export class PopupWithForm extends Popup {
     this._formElement.addEventListener("submit", this._handleSubmitForm);
   }
   _removeEventListeners() {
-    super._removeEventListeners();
     this._formElement.removeEventListener("submit", this._handleSubmitForm);
   }
 }

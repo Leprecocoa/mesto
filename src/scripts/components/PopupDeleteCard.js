@@ -1,10 +1,9 @@
 import { Popup } from "./Popup.js";
 
 export class PopupDeleteCard extends Popup {
-  constructor(formSelector, popupSelecor, api, handleDelete) {
+  constructor(formSelector, popupSelecor, handleDelete) {
     super(popupSelecor);
     this._formSelector = formSelector;
-    this._api = api;
     this._handleDelete = handleDelete;
     this._formElement = document.querySelector(this._formSelector);
     // Привязка обработчика
@@ -21,12 +20,15 @@ export class PopupDeleteCard extends Popup {
     this._formElement.addEventListener("submit", this._handleSubmitForm);
   }
   _removeEventListeners() {
-    super._removeEventListeners();
     this._formElement.removeEventListener("submit", this._handleSubmitForm);
   }
   open(data) {
     super.open();
     this.setEventListeners();
     this._cardId = data._id;
+  }
+  close() {
+    super.close();
+    this._removeEventListeners();
   }
 }

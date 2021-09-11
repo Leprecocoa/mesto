@@ -20,14 +20,6 @@ export class Popup {
       this.close();
     }
   }
-  //   Метод удаления слушателей
-  _removeEventListeners() {
-    this._popupElement.removeEventListener(
-      "mousedown",
-      this._handleClickOutsideClose
-    );
-    this._popupCloseButton.removeEventListener("click", this._handleClose);
-  }
   //   Метод добавления слушателей
   setEventListeners() {
     this._popupCloseButton.addEventListener("click", this._handleClose);
