@@ -37,6 +37,7 @@ const api = new Api({
 
 // Экземпляр класса попапа с картинкой
 const popupWithImage = new PopupWithImage();
+popupWithImage.setEventListeners();
 
 // Рендер карточек
 let cardList;
@@ -89,6 +90,7 @@ const addCardPopup = new PopupWithForm(
   },
   popupAddCardSelector
 );
+addCardPopup.setEventListeners();
 
 // Попап удаления карточки
 const popupDeleteCard = new PopupDeleteCard(
@@ -110,6 +112,7 @@ const popupDeleteCard = new PopupDeleteCard(
       .catch((err) => console.log(err));
   }
 );
+popupDeleteCard.setEventListeners();
 
 // Функция создания карточки
 function createCard(cardItem) {
@@ -174,6 +177,7 @@ api
       },
       ".popup-profile"
     );
+    profilePopup.setEventListeners();
     // Слушатели попапа профиля
     profileShowButton.addEventListener("click", () => {
       profilePopup.open();
@@ -206,6 +210,7 @@ const editAvatarPopup = new PopupWithForm(
   },
   popupEditavatarSelector
 );
+editAvatarPopup.setEventListeners();
 
 // профиль конец
 
