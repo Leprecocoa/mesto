@@ -1,24 +1,20 @@
 export class Api {
   constructor(options) {
-    this.profileUrl = options.profileUrl;
-    this.cardsUrl = options.cardsUrl;
+    this.baseUrl = options.baseUrl;
+    this.headers = options.headers;
   }
-  headers = {
-    authorization: "15ef627d-6933-45cc-b246-9992258b4fe6",
-    "Content-Type": "application/json",
-  };
   getUserInfo() {
-    return fetch(this.profileUrl, {
+    return fetch(`${this.baseUrl}/users/me`, {
       headers: this.headers,
     });
   }
   getCards() {
-    return fetch(this.cardsUrl, {
+    return fetch(`${this.baseUrl}/cards`, {
       headers: this.headers,
     });
   }
   sendProfileInfo(data) {
-    return fetch(this.profileUrl, {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({
@@ -28,7 +24,7 @@ export class Api {
     });
   }
   sendCards(card) {
-    return fetch(this.cardsUrl, {
+    return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
       headers: this.headers,
       body: JSON.stringify({
@@ -38,25 +34,25 @@ export class Api {
     });
   }
   deleteCard(id) {
-    return fetch(`${this.cardsUrl}/${id}`, {
+    return fetch(`${this.baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this.headers,
     });
   }
   sendLikes(id) {
-    return fetch(`${this.cardsUrl}/likes/${id}`, {
+    return fetch(`${this.baseUrl}/cards/likes/${id}`, {
       method: "PUT",
       headers: this.headers,
     });
   }
   deleteLikes(id) {
-    return fetch(`${this.cardsUrl}/likes/${id}`, {
+    return fetch(`${this.baseUrl}/cards/likes/${id}`, {
       method: "DELETE",
       headers: this.headers,
     });
   }
   editAvatar(link) {
-    return fetch(`${this.profileUrl}/avatar`, {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({

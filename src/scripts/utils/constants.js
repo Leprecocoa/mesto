@@ -11,3 +11,4 @@ export const popupDeleteCardSelector = ".popup-deletecard";
 export const popupFormDeleteCardSelector = ".popup__form_type_deletecard";
 export const popupFormEditavatarSelector = ".popup__form_type_editavatar";
 export const popupEditavatarSelector = ".popup-editavatar";
+export const profileImageSelector = ".profile__images";

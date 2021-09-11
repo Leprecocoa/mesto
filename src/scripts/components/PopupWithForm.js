@@ -14,11 +14,19 @@ export class PopupWithForm extends Popup {
     const element = this._formElement.querySelector(".popup__submit");
     const buttonText = element.textContent;
     element.textContent = "Сохранение...";
-    this._handleFormSubmit(this._getInputValues()).then(() => {
-      this._formElement.reset();
-      this.close();
-      element.textContent = buttonText;
-    });
+    this._handleFormSubmit(this._getInputValues())
+      .then(() => {
+        console.log("then");
+        this._formElement.reset();
+        this.close();
+      })
+      .catch((err) => {
+        console.log("catch");
+        console.log(err);
+      })
+      .finally(() => {
+        element.textContent = buttonText;
+      });
   }
   // Метод получения значений инпутов
   _getInputValues() {
