@@ -1,7 +1,5 @@
-import "./pages/index.css";
+import "./index.css";
 import {
-  profileShowButton,
-  addCardButton,
   cardTemplateSelector,
   cardContainerSelector,
   popupFormAddcardSelector,
@@ -13,48 +11,60 @@ import {
   aboutInputSelector,
   popupDeleteCardSelector,
   popupFormDeleteCardSelector,
-  editAvatarButton,
   popupFormEditavatarSelector,
   popupEditavatarSelector,
-  profileImageElement,
-} from "./scripts/utils/constants.js";
-import { Section } from "./scripts/components/Section.js";
-import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
-import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
-import { PopupDeleteCard } from "./scripts/components/PopupDeleteCard.js";
-import { UserInfo } from "./scripts/components/UserInfo.js";
-import { Card } from "./scripts/components/Card.js";
-import { FormValidator } from "./scripts/components/FormValidator.js";
-import { Api } from "./scripts/components/Api.js";
+  profileImageSelector,
+} from "../scripts/utils/constants.js";
+import { Section } from "../scripts/components/Section.js";
+import { PopupWithForm } from "../scripts/components/PopupWithForm.js";
+import { PopupWithImage } from "../scripts/components/PopupWithImage.js";
+import { PopupDeleteCard } from "../scripts/components/PopupDeleteCard.js";
+import { UserInfo } from "../scripts/components/UserInfo.js";
+import { Card } from "../scripts/components/Card.js";
+import { FormValidator } from "../scripts/components/FormValidator.js";
+import { Api } from "../scripts/components/Api.js";
+
+// Константы DOM элементов
+const profileShowButton = document.querySelector(".profile__edit-button");
+const addCardButton = document.querySelector(".profile__addcard-button ");
+const editAvatarButton = document.querySelector(".profile__avatar-edit");
+const profileImageElement = document.querySelector(profileImageSelector);
+
+let cardList;
+let myId;
 
 // Экземпляр класса апи
 const api = new Api({
-  profileUrl: "https://nomoreparties.co/v1/cohort-27/users/me",
-  cardsUrl: "https://mesto.nomoreparties.co/v1/cohort-27/cards",
+  baseUrl: "https://nomoreparties.co/v1/cohort-27",
+  headers: {
+    authorization: "15ef627d-6933-45cc-b246-9992258b4fe6",
+    "Content-Type": "application/json",
+  },
 });
+
+function getResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
 
 // секция создания карточки
 
 // Экземпляр класса попапа с картинкой
 const popupWithImage = new PopupWithImage();
+popupWithImage.setEventListeners();
 
-// Рендер карточек
-let cardList;
-function getCards() {
-  api.getCards().then((cards) => {
-    cards.reverse();
-    // Рендер массива начальных карточек
-    cardList = new Section(
-      {
-        data: cards,
-        renderer: (cardItem) => createCard(cardItem),
-      },
-      cardContainerSelector
-    );
-    cardList.renderItems();
-  });
-}
-getCards();
+Promise.all([
+  api.getUserInfo().then(getResponse),
+  api.getCards().then(getResponse),
+])
+  .then(([userInfo, cards]) => {
+    myId = userInfo._id;
+    initUser(userInfo);
+    initCards(cards);
+  })
+  .catch((err) => console.log(err));
 
 // Попап добавления карточки
 const addCardPopup = new PopupWithForm(
@@ -66,23 +76,28 @@ const addCardPopup = new PopupWithForm(
           name: formData["place-name"],
           link: formData["image-source"],
         })
-        .then(() => {
-          getCards();
+        .then(getResponse)
+        .then((res) => {
+          createCard(res);
         });
     },
   },
   popupAddCardSelector
 );
+addCardPopup.setEventListeners();
 
 // Попап удаления карточки
 const popupDeleteCard = new PopupDeleteCard(
   popupFormDeleteCardSelector,
   popupDeleteCardSelector,
-  api,
   (cardId) => {
-    api.deleteCard(cardId).then(() => {
-      getCards();
-    });
+    api
+      .deleteCard(cardId)
+      .then(getResponse)
+      .then(() => {
+        api.getCards().then(getResponse).then(initCards);
+      })
+      .catch((err) => console.log(err));
   }
 );
 
@@ -104,19 +119,31 @@ function createCard(cardItem) {
   cardList.addItem(cardElement);
 }
 
+// Рендер карточек
+function initCards(cards) {
+  cards.reverse();
+  // Рендер массива начальных карточек
+  cardList = new Section(
+    {
+      data: cards,
+      renderer: (cardItem) => createCard(cardItem),
+    },
+    cardContainerSelector
+  );
+  cardList.renderItems();
+}
+
 // создание карточки конец
 
 // секция профиля
 
-let myId;
-// Загрузка инфо пользователя
-api.getUserInfo().then((data) => {
-  myId = data._id;
-  profileImageElement.style.backgroundImage = `url(${data.avatar})`;
+// Загрузка инфо профиля
+function initUser(data) {
   // Экземпляр класса пропиля пользователя
   const userInfo = new UserInfo({
     name: profileTitleSelector,
     about: profileSubtitleSelector,
+    avatar: profileImageSelector,
   });
 
   userInfo.setUserInfo(data);
@@ -125,13 +152,17 @@ api.getUserInfo().then((data) => {
     {
       formSelector: popupFormProfileSelector,
       handleFormSubmit: (formData) => {
-        return api.sendProfileInfo(formData).then((res) => {
-          userInfo.setUserInfo(res);
-        });
+        return api
+          .sendProfileInfo(formData)
+          .then(getResponse)
+          .then((res) => {
+            userInfo.setUserInfo(res);
+          });
       },
     },
     ".popup-profile"
   );
+  profilePopup.setEventListeners();
   // Слушатели попапа профиля
   profileShowButton.addEventListener("click", () => {
     profilePopup.open();
@@ -140,20 +171,25 @@ api.getUserInfo().then((data) => {
     document.querySelector(aboutInputSelector).value = profileUserInfo.about;
     profileFormValidator.resetValidation();
   });
-});
+}
 
 // Попап загрузки аватара профиля
 const editAvatarPopup = new PopupWithForm(
   {
     formSelector: popupFormEditavatarSelector,
     handleFormSubmit: (formData) => {
-      return api.editAvatar(formData["avatar-link"]).then((res) => {
-        profileImageElement.style.backgroundImage = `url(${res.avatar})`;
-      });
+      const promise = api
+        .editAvatar(formData["avatar-link"])
+        .then(getResponse)
+        .then((res) => {
+          profileImageElement.style.backgroundImage = `url(${res.avatar})`;
+        });
+      return promise;
     },
   },
   popupEditavatarSelector
 );
+editAvatarPopup.setEventListeners();
 
 // профиль конец
 
