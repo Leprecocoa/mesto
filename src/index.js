@@ -41,18 +41,27 @@ const popupWithImage = new PopupWithImage();
 // Рендер карточек
 let cardList;
 function getCards() {
-  api.getCards().then((cards) => {
-    cards.reverse();
-    // Рендер массива начальных карточек
-    cardList = new Section(
-      {
-        data: cards,
-        renderer: (cardItem) => createCard(cardItem),
-      },
-      cardContainerSelector
-    );
-    cardList.renderItems();
-  });
+  api
+    .getCards()
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((cards) => {
+      cards.reverse();
+      // Рендер массива начальных карточек
+      cardList = new Section(
+        {
+          data: cards,
+          renderer: (cardItem) => createCard(cardItem),
+        },
+        cardContainerSelector
+      );
+      cardList.renderItems();
+    })
+    .catch((err) => console.log(err));
 }
 getCards();
 
@@ -66,9 +75,16 @@ const addCardPopup = new PopupWithForm(
           name: formData["place-name"],
           link: formData["image-source"],
         })
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          return Promise.reject(`Ошибка: ${res.status}`);
+        })
         .then(() => {
           getCards();
-        });
+        })
+        .catch((err) => console.log(err));
     },
   },
   popupAddCardSelector
@@ -80,9 +96,18 @@ const popupDeleteCard = new PopupDeleteCard(
   popupDeleteCardSelector,
   api,
   (cardId) => {
-    api.deleteCard(cardId).then(() => {
-      getCards();
-    });
+    api
+      .deleteCard(cardId)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(() => {
+        getCards();
+      })
+      .catch((err) => console.log(err));
   }
 );
 
@@ -110,46 +135,73 @@ function createCard(cardItem) {
 
 let myId;
 // Загрузка инфо пользователя
-api.getUserInfo().then((data) => {
-  myId = data._id;
-  profileImageElement.style.backgroundImage = `url(${data.avatar})`;
-  // Экземпляр класса пропиля пользователя
-  const userInfo = new UserInfo({
-    name: profileTitleSelector,
-    about: profileSubtitleSelector,
-  });
+api
+  .getUserInfo()
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .then((data) => {
+    myId = data._id;
+    profileImageElement.style.backgroundImage = `url(${data.avatar})`;
+    // Экземпляр класса пропиля пользователя
+    const userInfo = new UserInfo({
+      name: profileTitleSelector,
+      about: profileSubtitleSelector,
+    });
 
-  userInfo.setUserInfo(data);
-  // Попап редактирования профиля пользователя
-  const profilePopup = new PopupWithForm(
-    {
-      formSelector: popupFormProfileSelector,
-      handleFormSubmit: (formData) => {
-        return api.sendProfileInfo(formData).then((res) => {
-          userInfo.setUserInfo(res);
-        });
+    userInfo.setUserInfo(data);
+    // Попап редактирования профиля пользователя
+    const profilePopup = new PopupWithForm(
+      {
+        formSelector: popupFormProfileSelector,
+        handleFormSubmit: (formData) => {
+          return api
+            .sendProfileInfo(formData)
+            .then((res) => {
+              if (res.ok) {
+                return res.json();
+              }
+              return Promise.reject(`Ошибка: ${res.status}`);
+            })
+            .then((res) => {
+              userInfo.setUserInfo(res);
+            })
+            .catch((err) => console.log(err));
+        },
       },
-    },
-    ".popup-profile"
-  );
-  // Слушатели попапа профиля
-  profileShowButton.addEventListener("click", () => {
-    profilePopup.open();
-    const profileUserInfo = userInfo.getUserInfo();
-    document.querySelector(nameInputSelector).value = profileUserInfo.name;
-    document.querySelector(aboutInputSelector).value = profileUserInfo.about;
-    profileFormValidator.resetValidation();
-  });
-});
+      ".popup-profile"
+    );
+    // Слушатели попапа профиля
+    profileShowButton.addEventListener("click", () => {
+      profilePopup.open();
+      const profileUserInfo = userInfo.getUserInfo();
+      document.querySelector(nameInputSelector).value = profileUserInfo.name;
+      document.querySelector(aboutInputSelector).value = profileUserInfo.about;
+      profileFormValidator.resetValidation();
+    });
+  })
+  .catch((err) => console.log(err));
 
 // Попап загрузки аватара профиля
 const editAvatarPopup = new PopupWithForm(
   {
     formSelector: popupFormEditavatarSelector,
     handleFormSubmit: (formData) => {
-      return api.editAvatar(formData["avatar-link"]).then((res) => {
-        profileImageElement.style.backgroundImage = `url(${res.avatar})`;
-      });
+      return api
+        .editAvatar(formData["avatar-link"])
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .then((res) => {
+          profileImageElement.style.backgroundImage = `url(${res.avatar})`;
+        })
+        .catch((err) => console.log(err));
     },
   },
   popupEditavatarSelector

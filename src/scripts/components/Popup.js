@@ -22,7 +22,6 @@ export class Popup {
   }
   //   Метод удаления слушателей
   _removeEventListeners() {
-    console.log("gg");
     document.removeEventListener("keydown", this._handleEscClose);
     this._popupElement.removeEventListener(
       "mousedown",

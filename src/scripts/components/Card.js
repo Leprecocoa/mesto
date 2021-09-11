@@ -24,19 +24,37 @@ export class Card {
     return cardElement;
   }
   _setLike() {
-    this._api.sendLikes(this._data._id).then((res) => {
-      this._element.querySelector(".article__like-number").textContent =
-        res.likes.length;
-      this._data.likes = res.likes;
-    });
+    this._api
+      .sendLikes(this._data._id)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then((res) => {
+        this._element.querySelector(".article__like-number").textContent =
+          res.likes.length;
+        this._data.likes = res.likes;
+      })
+      .catch((err) => console.log(err));
     this._cardLikeButton.classList.add("article__like-button_state_active");
   }
   _deleteLike() {
-    this._api.deleteLikes(this._data._id).then((res) => {
-      this._element.querySelector(".article__like-number").textContent =
-        res.likes.length;
-      this._data.likes = res.likes;
-    });
+    this._api
+      .deleteLikes(this._data._id)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then((res) => {
+        this._element.querySelector(".article__like-number").textContent =
+          res.likes.length;
+        this._data.likes = res.likes;
+      })
+      .catch((err) => console.log(err));
     this._cardLikeButton.classList.remove("article__like-button_state_active");
   }
   // Метод лайка карточки

@@ -7,25 +7,15 @@ export class Api {
     authorization: "15ef627d-6933-45cc-b246-9992258b4fe6",
     "Content-Type": "application/json",
   };
-  _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  }
   getUserInfo() {
     return fetch(this.profileUrl, {
       headers: this.headers,
-    })
-      .then(this._checkResponse)
-      .catch((err) => console.log(err));
+    });
   }
   getCards() {
     return fetch(this.cardsUrl, {
       headers: this.headers,
-    })
-      .then(this._checkResponse)
-      .catch((err) => console.log(err));
+    });
   }
   sendProfileInfo(data) {
     return fetch(this.profileUrl, {
@@ -35,9 +25,7 @@ export class Api {
         name: data.name,
         about: data.about,
       }),
-    })
-      .then(this._checkResponse)
-      .catch((err) => console.log(err));
+    });
   }
   sendCards(card) {
     return fetch(this.cardsUrl, {
@@ -47,33 +35,25 @@ export class Api {
         name: card.name,
         link: card.link,
       }),
-    })
-      .then(this._checkResponse)
-      .catch((err) => console.log(err));
+    });
   }
   deleteCard(id) {
     return fetch(`${this.cardsUrl}/${id}`, {
       method: "DELETE",
       headers: this.headers,
-    })
-      .then(this._checkResponse)
-      .catch((err) => console.log(err));
+    });
   }
   sendLikes(id) {
     return fetch(`${this.cardsUrl}/likes/${id}`, {
       method: "PUT",
       headers: this.headers,
-    })
-      .then(this._checkResponse)
-      .catch((err) => console.log(err));
+    });
   }
   deleteLikes(id) {
     return fetch(`${this.cardsUrl}/likes/${id}`, {
       method: "DELETE",
       headers: this.headers,
-    })
-      .then(this._checkResponse)
-      .catch((err) => console.log(err));
+    });
   }
   editAvatar(link) {
     return fetch(`${this.profileUrl}/avatar`, {
@@ -82,8 +62,6 @@ export class Api {
       body: JSON.stringify({
         avatar: link,
       }),
-    })
-      .then(this._checkResponse)
-      .catch((err) => console.log(err));
+    });
   }
 }
