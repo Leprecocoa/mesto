@@ -22,7 +22,6 @@ export class Popup {
   }
   //   Метод удаления слушателей
   _removeEventListeners() {
-    document.removeEventListener("keydown", this._handleEscClose);
     this._popupElement.removeEventListener(
       "mousedown",
       this._handleClickOutsideClose
@@ -32,7 +31,6 @@ export class Popup {
   //   Метод добавления слушателей
   setEventListeners() {
     this._popupCloseButton.addEventListener("click", this._handleClose);
-    document.addEventListener("keydown", this._handleEscClose);
     this._popupElement.addEventListener(
       "mousedown",
       this._handleClickOutsideClose
@@ -40,12 +38,12 @@ export class Popup {
   }
   //   Открытие попапа
   open() {
-    this.setEventListeners();
+    document.addEventListener("keydown", this._handleEscClose);
     this._popupElement.classList.add("popup_opened");
   }
   //   Закрытие попапа
   close() {
     this._popupElement.classList.remove("popup_opened");
-    this._removeEventListeners();
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 }
