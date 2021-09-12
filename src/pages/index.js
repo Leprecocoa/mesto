@@ -28,10 +28,10 @@ import { Api } from "../scripts/components/Api.js";
 const profileShowButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__addcard-button ");
 const editAvatarButton = document.querySelector(".profile__avatar-edit");
-const profileImageElement = document.querySelector(profileImageSelector);
 
 let cardList;
 let myId;
+let userInfo;
 
 // Экземпляр класса апи
 const api = new Api({
@@ -42,23 +42,13 @@ const api = new Api({
   },
 });
 
-function getResponse(res) {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
-}
-
 // секция создания карточки
 
 // Экземпляр класса попапа с картинкой
 const popupWithImage = new PopupWithImage();
 popupWithImage.setEventListeners();
 
-Promise.all([
-  api.getUserInfo().then(getResponse),
-  api.getCards().then(getResponse),
-])
+Promise.all([api.getUserInfo(), api.getCards()])
   .then(([userInfo, cards]) => {
     myId = userInfo._id;
     initUser(userInfo);
@@ -71,14 +61,21 @@ const addCardPopup = new PopupWithForm(
   {
     formSelector: popupFormAddcardSelector,
     handleFormSubmit: (formData) => {
+      addCardPopup.changeButtonText(true);
       return api
         .sendCards({
           name: formData["place-name"],
           link: formData["image-source"],
         })
-        .then(getResponse)
         .then((res) => {
           createCard(res);
+        })
+        .then(() => {
+          addCardPopup.handleSubmitSuccess();
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          addCardPopup.changeButtonText(false);
         });
     },
   },
@@ -93,9 +90,9 @@ const popupDeleteCard = new PopupDeleteCard(
   (cardId) => {
     api
       .deleteCard(cardId)
-      .then(getResponse)
       .then(() => {
-        api.getCards().then(getResponse).then(initCards);
+        popupDeleteCard.removeCard();
+        popupDeleteCard.close();
       })
       .catch((err) => console.log(err));
   }
@@ -110,7 +107,7 @@ function createCard(cardItem) {
       popupWithImage.open(cardItem);
     },
     () => {
-      popupDeleteCard.open(cardItem);
+      popupDeleteCard.open(card);
     },
     api,
     myId
@@ -140,7 +137,7 @@ function initCards(cards) {
 // Загрузка инфо профиля
 function initUser(data) {
   // Экземпляр класса пропиля пользователя
-  const userInfo = new UserInfo({
+  userInfo = new UserInfo({
     name: profileTitleSelector,
     about: profileSubtitleSelector,
     avatar: profileImageSelector,
@@ -152,11 +149,16 @@ function initUser(data) {
     {
       formSelector: popupFormProfileSelector,
       handleFormSubmit: (formData) => {
+        profilePopup.changeButtonText(true);
         return api
           .sendProfileInfo(formData)
-          .then(getResponse)
           .then((res) => {
             userInfo.setUserInfo(res);
+            profilePopup.handleSubmitSuccess();
+          })
+          .catch((err) => console.log(err))
+          .finally(() => {
+            profilePopup.changeButtonText(false);
           });
       },
     },
@@ -178,13 +180,19 @@ const editAvatarPopup = new PopupWithForm(
   {
     formSelector: popupFormEditavatarSelector,
     handleFormSubmit: (formData) => {
-      const promise = api
+      editAvatarPopup.changeButtonText(true);
+      api
         .editAvatar(formData["avatar-link"])
-        .then(getResponse)
         .then((res) => {
-          profileImageElement.style.backgroundImage = `url(${res.avatar})`;
+          userInfo.setAvatar(res);
+        })
+        .then(() => {
+          editAvatarPopup.handleSubmitSuccess();
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          editAvatarPopup.changeButtonText(false);
         });
-      return promise;
     },
   },
   popupEditavatarSelector

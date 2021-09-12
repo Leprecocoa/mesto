@@ -9,11 +9,12 @@ export class PopupDeleteCard extends Popup {
     // Привязка обработчика
     this._handleSubmitForm = this._submitDeletingForm.bind(this);
   }
+  removeCard() {
+    this._card.removeCard();
+  }
   _submitDeletingForm(evt) {
     evt.preventDefault();
-
-    this._handleDelete(this._cardId);
-    this.close();
+    this._handleDelete(this._card.getId());
   }
   setEventListeners() {
     super.setEventListeners();
@@ -22,10 +23,10 @@ export class PopupDeleteCard extends Popup {
   _removeEventListeners() {
     this._formElement.removeEventListener("submit", this._handleSubmitForm);
   }
-  open(data) {
+  open(card) {
     super.open();
     this.setEventListeners();
-    this._cardId = data._id;
+    this._card = card;
   }
   close() {
     super.close();
