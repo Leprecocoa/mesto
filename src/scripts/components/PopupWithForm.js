@@ -5,28 +5,15 @@ export class PopupWithForm extends Popup {
     this._formSelector = formSelector;
     this._handleFormSubmit = handleFormSubmit;
     this._formElement = document.querySelector(this._formSelector);
+    this._buttonElement = this._formElement.querySelector(".popup__submit");
+    this._buttonElementText = this._buttonElement.textContent;
     // Привязка обработчика
     this._handleSubmitForm = this._submitForm.bind(this);
   }
   //Обработчик сабмита формы
   _submitForm(evt) {
     evt.preventDefault();
-    const element = this._formElement.querySelector(".popup__submit");
-    const buttonText = element.textContent;
-    element.textContent = "Сохранение...";
-    this._handleFormSubmit(this._getInputValues())
-      .then(() => {
-        console.log("then");
-        this._formElement.reset();
-        this.close();
-      })
-      .catch((err) => {
-        console.log("catch");
-        console.log(err);
-      })
-      .finally(() => {
-        element.textContent = buttonText;
-      });
+    this._handleFormSubmit(this._getInputValues());
   }
   // Метод получения значений инпутов
   _getInputValues() {
@@ -36,6 +23,20 @@ export class PopupWithForm extends Popup {
       this._formValues[input.name] = input.value;
     });
     return this._formValues;
+  }
+  // Метод успешной обработки формы
+  handleSubmitSuccess() {
+    this._formElement.reset();
+    this.close();
+  }
+  // Изменение текста кнопки
+  changeButtonText(isLoading) {
+    const text = "Сохранение...";
+    if (isLoading) {
+      this._buttonElement.textContent = text;
+    } else {
+      this._buttonElement.textContent = this._buttonElementText;
+    }
   }
   setEventListeners() {
     super.setEventListeners();

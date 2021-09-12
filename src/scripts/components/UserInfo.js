@@ -10,6 +10,9 @@ export class UserInfo {
     profileValues.about = this._aboutElement.textContent;
     return profileValues;
   }
+  setAvatar(res) {
+    this._avatarElement.style.backgroundImage = `url(${res.avatar})`;
+  }
   setUserInfo(data) {
     this._nameElement.textContent = data.name;
     this._aboutElement.textContent = data.about;

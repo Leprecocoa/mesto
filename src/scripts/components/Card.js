@@ -1,13 +1,5 @@
 export class Card {
-  constructor(
-    data,
-    cardSelector,
-    handleCardClick,
-    handleDelete,
-    api,
-    myId,
-    cardId
-  ) {
+  constructor(data, cardSelector, handleCardClick, handleDelete, api, myId) {
     this._data = data;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
@@ -27,12 +19,6 @@ export class Card {
     this._api
       .sendLikes(this._data._id)
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then((res) => {
         this._element.querySelector(".article__like-number").textContent =
           res.likes.length;
         this._data.likes = res.likes;
@@ -43,12 +29,6 @@ export class Card {
   _deleteLike() {
     this._api
       .deleteLikes(this._data._id)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
       .then((res) => {
         this._element.querySelector(".article__like-number").textContent =
           res.likes.length;
@@ -83,6 +63,12 @@ export class Card {
         .querySelector(".article__delete-button")
         .classList.add("article__delete-button_visible");
     }
+  }
+  getId() {
+    return this._data._id;
+  }
+  removeCard() {
+    this._element.remove();
   }
   // Метод создания карточки
   generateCard() {
